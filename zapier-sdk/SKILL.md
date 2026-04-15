@@ -25,17 +25,28 @@ If the user needs both (build + interactive tool use), combine them: SDK for shi
 
 ## Prerequisites
 
-Check if `@zapier/zapier-sdk` is installed:
+The SDK has two packages: a TypeScript library and a CLI. Install whichever you need:
 
+**SDK library (for TypeScript code):**
 ```bash
 ls node_modules/@zapier/zapier-sdk 2>/dev/null && echo "installed" || echo "not installed"
 ```
 
-If not installed (or not authenticated), point the user to the quickstart:
+**CLI (for terminal commands via `npx zapier-sdk`):**
+```bash
+npx zapier-sdk --version 2>/dev/null && echo "installed" || echo "not installed"
+```
 
-- https://docs.zapier.com/sdk
+If not installed:
+```bash
+npm install @zapier/zapier-sdk                                # SDK library
+npm install -D @zapier/zapier-sdk-cli @types/node typescript  # CLI + dev deps
+npx zapier-sdk login                                          # Authenticate (opens browser)
+```
 
-Offer to guide setup step-by-step only after user confirmation. Setup requires browser-based login via `npx zapier-sdk login`.
+Full quickstart: https://docs.zapier.com/sdk
+
+Setup requires browser-based login via `npx zapier-sdk login`. Offer to guide setup step-by-step only after user confirmation.
 
 ## Critical: Do Not Trust Internal Knowledge
 
