@@ -1,0 +1,19 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# OS and editor
+.DS_Store
+*.swp
+*.swo
+
+# Logs and temp
+*.log
+tmp/
+temp/

@@ -1,0 +1,31 @@
+{
+  "name": "@zapier/zapier-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Docs and examples corpus for the Zapier SDK on npm. Connect to 9,000+ apps from your agent or backend.",
+  "keywords": [
+    "zapier",
+    "agent",
+    "ai-agent",
+    "mcp",
+    "automation",
+    "oauth",
+    "integration",
+    "claude",
+    "cursor",
+    "openai",
+    "sdk"
+  ],
+  "homepage": "https://docs.zapier.com/sdk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zapier/sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zapier/sdk/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
