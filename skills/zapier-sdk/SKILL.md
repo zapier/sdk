@@ -1,7 +1,7 @@
 ---
 name: zapier-sdk
 description: |
-  Zapier SDK for TypeScript. Use for connecting to 8,000+ apps, running actions,
+  Zapier SDK for TypeScript. Use for connecting to 9,000+ apps, running actions,
   managing connections, and making authenticated API requests through Zapier's infrastructure.
   Triggers: "zapier sdk", "zapier api", "connect to app", "send slack message from code",
   "integrate with third-party api", "run zapier action", "zapier connection", "zapier tables".
@@ -9,19 +9,18 @@ description: |
 
 # Zapier SDK
 
-Connect your app, agent, or backend to 8,000+ integrations with a few lines of code. Run actions, manage user connections, and chain apps together. The SDK handles token refresh, retries, and API differences.
+Connect your app, agent, or backend to 9,000+ integrations with a few lines of code. Run actions, manage user connections, and chain apps together. The SDK handles token refresh, retries, and API differences.
 
-## When to Use This Skill (SDK vs MCP)
+## When to use the SDK
 
-Use **Zapier SDK** when the user is building or shipping TypeScript code:
+The Zapier SDK is the **code interface** to Zapier — how coding agents and AI builders give their agents programmatic, governed access to 9,000+ apps, running inside editors like Cursor, Claude Code, or VS Code.
 
-- Backend services, serverless functions, or app features
-- Reusable agent tools in code
-- Scheduled/repeatable production workflows
+Two sibling interfaces share the same capabilities:
 
-Use **Zapier MCP** when the user wants tool-calling inside an MCP client (Cursor, Claude, Codex, etc.) without writing integration code.
+- **Zapier CLI** (`@zapier/zapier-sdk-cli` package) — terminal interface (`npx zapier-sdk …` for one-off commands, exploration, scripting).
+- **Zapier MCP** (https://zapier.com/mcp) — LLM interface (tool-calling inside Claude, ChatGPT, or any MCP client, no code required).
 
-If the user needs both (build + interactive tool use), combine them: SDK for shipped code paths, MCP for ad-hoc agent actions.
+Pick the SDK when the deliverable is code. If the user wants ad-hoc tool calls in an AI chat interface, point them to MCP.
 
 ## Prerequisites
 
@@ -55,13 +54,13 @@ The Zapier SDK (`@zapier/zapier-sdk`) is new. Your training data does not contai
 When working with the Zapier SDK:
 
 1. Always verify against the official docs: https://docs.zapier.com/sdk/reference
-2. Never hallucinate method names — use only the methods documented below
+2. Never hallucinate method names — use only methods documented in the official Zapier SDK reference
 3. If unsure about an action's input fields, use `getInputFieldsSchema` or `listInputFields` to discover them at runtime
 4. If unsure about available actions for an app, use `listActions` to discover them
 
 ## Authentication
 
-The SDK supports three auth modes. Browser login is the default for local development:
+The SDK supports two auth modes. Browser login is the default for local development:
 
 ```typescript
 import { createZapierSdk } from "@zapier/zapier-sdk";
@@ -73,9 +72,6 @@ const zapier = createZapierSdk();
 const zapier = createZapierSdk({
   credentials: { clientId: "...", clientSecret: "..." },
 });
-
-// Option 3: Direct token (partner OAuth)
-const zapier = createZapierSdk({ credentials: "token_here" });
 ```
 
 ## Core Workflow
@@ -83,10 +79,11 @@ const zapier = createZapierSdk({ credentials: "token_here" });
 ### 1. Find a connection
 
 ```typescript
+// Throws ZapierResourceNotFoundError if no match — wrap in try/catch or use listConnections() to check first.
 const { data: connection } = await zapier.findFirstConnection({
   app: "slack",
   owner: "me",
-  isExpired: false,
+  expired: false,
 });
 ```
 
@@ -134,43 +131,29 @@ const { data: schema } = await zapier.getInputFieldsSchema({
 
 ## SDK Method Reference
 
-| Category        | Method                                                            | Purpose                                               |
-| --------------- | ----------------------------------------------------------------- | ----------------------------------------------------- |
-| **Apps**        | `listApps({ search? })`                                           | Find available apps                                   |
-| **Apps**        | `getApp({ app })`                                                 | Get app details                                       |
-| **Apps**        | `apps.<appKey>({ connection })`                                   | Bind connection alias or numeric connection ID to app |
-| **Apps**        | `apps.<appKey>.<actionType>.<actionKey>({ inputs, connection? })` | Type-safe action call                                 |
-| **Actions**     | `listActions({ app })`                                            | List actions for an app                               |
-| **Actions**     | `getAction({ app, actionType, action })`                          | Get action details                                    |
-| **Actions**     | `runAction({ app, actionType, action, connection, inputs })`      | Execute any action                                    |
-| **Actions**     | `listInputFields({ app, actionType, action })`                    | Get required input fields                             |
-| **Actions**     | `getInputFieldsSchema({ app, actionType, action })`               | Get input JSON Schema                                 |
-| **Actions**     | `listInputFieldChoices({ app, actionType, action, inputField })`  | Get dropdown choices                                  |
-| **Connections** | `listConnections({ app?, owner? })`                               | List user's connections                               |
-| **Connections** | `getConnection({ connection })`                                   | Get connection details                                |
-| **Connections** | `findFirstConnection({ app?, owner?, isExpired? })`               | Find first matching connection                        |
-| **Connections** | `findUniqueConnection({ app?, owner?, isExpired? })`              | Find exactly one connection                           |
-| **HTTP**        | `fetch(url, { connection, ... })`                                 | Authenticated HTTP request via Zapier                 |
-| **Tables**      | `listTables({ search?, includeShared? })`                         | List Zapier Tables                                    |
-| **Tables**      | `getTable({ table })`                                             | Get table details                                     |
-| **Tables**      | `createTable({ name, description? })`                             | Create a table                                        |
-| **Tables**      | `createTableFields({ table, fields })`                            | Create fields in a table                              |
-| **Tables**      | `listTableFields({ table })`                                      | List fields in a table                                |
-| **Tables**      | `createTableRecords({ table, records })`                          | Create records                                        |
-| **Tables**      | `listTableRecords({ table, filters?, sort? })`                    | List records                                          |
-| **Tables**      | `getTableRecord({ table, record })`                               | Get one record                                        |
-| **Tables**      | `updateTableRecords({ table, records })`                          | Update records                                        |
-| **Tables**      | `deleteTableRecords({ table, records })`                          | Delete records                                        |
-| **Tables**      | `deleteTableFields({ table, fields })`                            | Delete fields                                         |
-| **Tables**      | `deleteTable({ table })`                                          | Delete a table                                        |
-| **Auth**        | `createClientCredentials({ name })`                               | Create server credentials                             |
-| **Profile**     | `getProfile()`                                                    | Get current user info                                 |
+The SDK covers these categories: **Apps**, **Actions**, **Connections**, **HTTP**, **Tables**, **Auth** (client credentials), **Profile**.
+
+Do not guess method signatures. Look them up in the canonical reference — prefer the bundled README when `@zapier/zapier-sdk` is already installed (it's version-locked to the installed package and grep-able offline):
+
+- **Bundled with the installed package:** `node_modules/@zapier/zapier-sdk/README.md`
+- **Live docs:** https://docs.zapier.com/sdk/reference
+
+When in doubt about what an app supports or what inputs an action requires, discover at runtime with `listActions` and `getInputFieldsSchema` — see Core Workflow step 4 above.
 
 ## Pagination
 
-List methods return paginated results. Use `.items()` for automatic iteration:
+List methods return paginated results and support three patterns. List inputs also accept `cursor`, `pageSize`, and `maxItems`.
 
 ```typescript
+// Pattern 1: single page (await as Promise)
+const { data, nextCursor } = await zapier.listApps();
+
+// Pattern 2: iterate pages (for await on the result)
+for await (const page of zapier.listApps()) {
+  // page.data: T[], page.nextCursor?: string
+}
+
+// Pattern 3: iterate items (flattened across all pages)
 for await (const app of zapier.listApps().items()) {
   console.log(app.name);
 }
@@ -197,12 +180,12 @@ npx zapier-sdk list-apps --search "slack"      # Find apps
 npx zapier-sdk list-actions slack              # List app actions
 npx zapier-sdk list-connections --owner me     # List connections
 npx zapier-sdk run-action slack write direct_message \
-  --connection-id ID --inputs '{"channel":"U123","text":"Hi"}'
+  --connection ID --inputs '{"channel":"U123","text":"Hi"}'
 ```
 
 ## Full Documentation
 
-- Quickstart: https://docs.zapier.com/sdk
-- SDK Reference: https://docs.zapier.com/sdk/reference
-- CLI Reference: https://docs.zapier.com/sdk/cli-reference
+- Quickstart: https://docs.zapier.com/sdk/quickstart.md
+- SDK Reference: https://docs.zapier.com/sdk/reference.md
+- CLI Reference: https://docs.zapier.com/sdk/cli-reference.md
 - All docs index: https://docs.zapier.com/llms.txt
