@@ -55,7 +55,7 @@ When working with the Zapier SDK:
 
 1. Always verify against the official docs: https://docs.zapier.com/sdk/reference
 2. Never hallucinate method names — use only methods documented in the official Zapier SDK reference
-3. If unsure about an action's input fields, use `getInputFieldsSchema` or `listInputFields` to discover them at runtime
+3. If unsure about an action's input fields, use `getActionInputFieldsSchema` or `listActionInputFields` to discover them at runtime
 4. If unsure about available actions for an app, use `listActions` to discover them
 
 ## Authentication
@@ -122,7 +122,7 @@ for await (const action of zapier.listActions({ app: "slack" }).items()) {
 }
 
 // Get required inputs for an action
-const { data: schema } = await zapier.getInputFieldsSchema({
+const { data: schema } = await zapier.getActionInputFieldsSchema({
   app: "slack",
   actionType: "write",
   action: "direct_message",
@@ -138,7 +138,7 @@ Do not guess method signatures. Look them up in the canonical reference — pref
 - **Bundled with the installed package:** `node_modules/@zapier/zapier-sdk/README.md`
 - **Live docs:** https://docs.zapier.com/sdk/reference
 
-When in doubt about what an app supports or what inputs an action requires, discover at runtime with `listActions` and `getInputFieldsSchema` — see Core Workflow step 4 above.
+When in doubt about what an app supports or what inputs an action requires, discover at runtime with `listActions` and `getActionInputFieldsSchema` — see Core Workflow step 4 above.
 
 ## Pagination
 

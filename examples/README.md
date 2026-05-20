@@ -57,10 +57,10 @@ Comments inside explain the *why*, not the what. Method names follow the [SDK re
 
 **About the action keys:** every action key in these examples has been verified against the live Zapier action catalog (`zapier-sdk list-actions <app>`). They are real and current as of this scaffold.
 
-**About the input shapes:** some apps have *dynamic* input fields that depend on the specific connection's configuration (Notion's database schema, Asana's project list, HubSpot's custom properties, Salesforce custom objects). Where an input is dynamic, the example marks it with a `// dynamic` comment and links to `getInputFieldsSchema`. Discover the live shape with:
+**About the input shapes:** some apps have *dynamic* input fields that depend on the specific connection's configuration (Notion's database schema, Asana's project list, HubSpot's custom properties, Salesforce custom objects). Where an input is dynamic, the example marks it with a `// dynamic` comment and links to `getActionInputFieldsSchema`. Discover the live shape with:
 
 ```typescript
-const { data: schema } = await zapier.getInputFieldsSchema({
+const { data: schema } = await zapier.getActionInputFieldsSchema({
   app: "<app>",
   actionType: "<read|write|search>",
   action: "<actionKey>",
@@ -82,7 +82,7 @@ npx tsx examples/chained/stripe-charge-to-onboarding.ts
 
 ## Contributing an example
 
-PRs welcome. Keep single-app and single-pattern examples under 40 lines. Chained examples can be longer (50-100) but should still fit on one screen. Verify every action key against `zapier-sdk list-actions <app>` before submitting. For inputs that vary by connection, mark them `// dynamic` and reference `getInputFieldsSchema`.
+PRs welcome. Keep single-app and single-pattern examples under 40 lines. Chained examples can be longer (50-100) but should still fit on one screen. Verify every action key against `zapier-sdk list-actions <app>` before submitting. For inputs that vary by connection, mark them `// dynamic` and reference `getActionInputFieldsSchema`.
 
 ## See also
 

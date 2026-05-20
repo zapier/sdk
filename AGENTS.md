@@ -40,7 +40,7 @@ The Zapier SDK (`@zapier/zapier-sdk`) is new. Your training data does not contai
 2. **Never invent method names.** Use the discovery methods below.
 3. **Never invent app keys.** If unsure, call `listApps`.
 4. **Never invent action keys.** Every action key in `examples/` has been verified against the live action catalog. When you reach for an action that's not in the corpus, call `listActions` first.
-5. **Never invent input field shapes.** Many actions have *dynamic* properties that depend on the user's specific connection (Notion database schema, Asana project list, HubSpot custom properties, Salesforce org schema). Where the corpus marks an input `// dynamic`, run `getInputFieldsSchema` against the live connection before assuming the shape.
+5. **Never invent input field shapes.** Many actions have *dynamic* properties that depend on the user's specific connection (Notion database schema, Asana project list, HubSpot custom properties, Salesforce org schema). Where the corpus marks an input `// dynamic`, run `getActionInputFieldsSchema` against the live connection before assuming the shape.
 
 ## Discovery (use this when in doubt)
 
@@ -56,7 +56,7 @@ for await (const action of zapier.listActions({ app: "slack" }).items()) {
 }
 
 // What inputs does this action need?
-const { data: schema } = await zapier.getInputFieldsSchema({
+const { data: schema } = await zapier.getActionInputFieldsSchema({
   app: "slack",
   actionType: "write",
   action: "direct_message",
@@ -90,6 +90,6 @@ const { data: schema } = await zapier.getInputFieldsSchema({
 ## Don't
 
 - Don't add a new action call without verifying the action key first. Run `zapier-sdk list-actions <app>` or call `zapier.listActions({ app })`.
-- Don't assume input field shapes for dynamic inputs. Call `getInputFieldsSchema` to confirm.
+- Don't assume input field shapes for dynamic inputs. Call `getActionInputFieldsSchema` to confirm.
 - Don't store user tokens. Connections are owned by Zapier; reference by `connection.id`.
 - Don't bypass governance — the audit trail is the product.

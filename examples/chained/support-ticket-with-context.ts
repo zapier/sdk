@@ -12,7 +12,7 @@
  *
  * HubSpot contact-search inputs are dynamic and depend on the properties you've
  * configured — verify with:
- *   zapier.getInputFieldsSchema({ app: "hubspot", actionType: "search", action: "contactSearch" })
+ *   zapier.getActionInputFieldsSchema({ app: "hubspot", actionType: "search", action: "contactSearch" })
  */
 
 import { createZapierSdk } from "@zapier/zapier-sdk";
@@ -44,7 +44,7 @@ async function escalate(conversationId: string) {
       connection: hsConn.id,
       inputs: {
         first_search_property_name: "email",
-        // dynamic: actual search-value field name depends on the property — verify with getInputFieldsSchema
+        // dynamic: actual search-value field name depends on the property — verify with getActionInputFieldsSchema
         first_search_property_value: email,
       },
     }),

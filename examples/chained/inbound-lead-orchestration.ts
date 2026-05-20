@@ -13,7 +13,7 @@
  * Run: npx tsx examples/chained/inbound-lead-orchestration.ts
  *
  * Salesforce field names below assume standard Lead fields — verify with:
- *   zapier.getInputFieldsSchema({ app: "salesforce", actionType: "write", action: "create_lead" })
+ *   zapier.getActionInputFieldsSchema({ app: "salesforce", actionType: "write", action: "create_lead" })
  */
 
 import { createZapierSdk } from "@zapier/zapier-sdk";
@@ -48,7 +48,7 @@ async function processLead(formId: string) {
       object: "Lead",
       searchValue: email,
       // searchField is dynamic — defaults to Email when searching Leads. Verify
-      // with: zapier.getInputFieldsSchema({ app: "salesforce", actionType: "search", action: "find_record" })
+      // with: zapier.getActionInputFieldsSchema({ app: "salesforce", actionType: "search", action: "find_record" })
     },
   })) as { data: any[] };
 

@@ -7,7 +7,7 @@
  * Run: npx tsx examples/by-app/notion/create-page.ts
  *
  * Notion property shape depends on your database's schema. Verify with:
- *   zapier.getInputFieldsSchema({ app: "notion", actionType: "write", action: "create_database_item" })
+ *   zapier.getActionInputFieldsSchema({ app: "notion", actionType: "write", action: "create_database_item" })
  */
 
 import { createZapierSdk } from "@zapier/zapier-sdk";

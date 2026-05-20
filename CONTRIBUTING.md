@@ -17,7 +17,7 @@ Rules:
 
 1. **Action keys must be real.** Verify with `npx zapier-sdk list-actions <app>` before submitting. The corpus stays trustworthy because every key has been checked.
 2. **Use the generic `runAction` form** unless the typed action (`zapier.apps.<key>.<type>.<action>`) is documented in the [SDK reference](https://docs.zapier.com/sdk/reference). The typed form is reserved for actions we've committed to as a stable surface.
-3. **Mark dynamic inputs `// dynamic`.** Anything whose shape depends on the connection's specific config (Notion database schema, HubSpot custom properties, Salesforce org schema, etc.) gets a `// dynamic` comment so readers know to call `getInputFieldsSchema` for live verification.
+3. **Mark dynamic inputs `// dynamic`.** Anything whose shape depends on the connection's specific config (Notion database schema, HubSpot custom properties, Salesforce org schema, etc.) gets a `// dynamic` comment so readers know to call `getActionInputFieldsSchema` for live verification.
 4. **One JTBD per file, one screen long.** Single-app and single-pattern examples target ~20-40 lines. Chained examples can run 50-100. Keep each file scannable.
 5. **Top comment block** with: one-sentence description, JTBD, Apps list, Run command. Chained examples also list the Pattern (fan-out / branching / transform pipeline / aggregation).
 

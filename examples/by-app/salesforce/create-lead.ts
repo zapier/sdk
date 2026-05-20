@@ -7,7 +7,7 @@
  *
  * Lead field names depend on your Salesforce org schema (standard fields below
  * assume an unmodified Lead object). Verify with:
- *   zapier.getInputFieldsSchema({ app: "salesforce", actionType: "write", action: "create_lead" })
+ *   zapier.getActionInputFieldsSchema({ app: "salesforce", actionType: "write", action: "create_lead" })
  */
 
 import { createZapierSdk } from "@zapier/zapier-sdk";
