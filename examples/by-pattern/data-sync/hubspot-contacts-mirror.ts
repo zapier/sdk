@@ -12,7 +12,7 @@
  * Run: npx tsx examples/by-pattern/data-sync/hubspot-contacts-mirror.ts
  *
  * Notion field shape depends on your database schema. Verify with:
- *   zapier.getInputFieldsSchema({ app: "notion", actionType: "write", action: "create_database_item" })
+ *   zapier.getActionInputFieldsSchema({ app: "notion", actionType: "write", action: "create_database_item" })
  */
 
 import { createZapierSdk } from "@zapier/zapier-sdk";

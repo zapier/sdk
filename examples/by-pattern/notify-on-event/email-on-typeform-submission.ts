@@ -6,7 +6,7 @@
  * Run: npx tsx examples/by-pattern/notify-on-event/email-on-typeform-submission.ts
  *
  * Inputs marked with `// dynamic` depend on the connection's specific config —
- * verify shape with: zapier.getInputFieldsSchema({ app, actionType, action }).
+ * verify shape with: zapier.getActionInputFieldsSchema({ app, actionType, action }).
  */
 
 import { createZapierSdk } from "@zapier/zapier-sdk";

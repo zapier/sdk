@@ -10,7 +10,7 @@ The corpus is the product. It exists to (1) be grepped by agents at runtime and 
 
 ## Read AGENTS.md first
 
-`AGENTS.md` is the canonical guide for agents working in this repo. It covers discovery (`listApps`, `listActions`, `getInputFieldsSchema`), the canonical workflow, escape hatches (`runAction`, `fetch`), and explicit don'ts. Don't duplicate or contradict it.
+`AGENTS.md` is the canonical guide for agents working in this repo. It covers discovery (`listApps`, `listActions`, `getActionInputFieldsSchema`), the canonical workflow, escape hatches (`runAction`, `fetch`), and explicit don'ts. Don't duplicate or contradict it.
 
 ## Running and validating
 
@@ -27,7 +27,7 @@ Before committing a new or edited example, run `npx zapier-sdk list-actions <app
 
 - **Action keys must be real.** Every key in `examples/` has been verified against the live catalog. Verify new ones with `npx zapier-sdk list-actions <app>`.
 - **Prefer the generic `runAction({ app, actionType, action, connection, inputs })` form.** The typed `zapier.apps.<key>.<type>.<action>` form is reserved for actions documented as a stable surface in the SDK reference.
-- **Mark connection-dependent inputs `// dynamic`.** Anything whose shape depends on the user's specific connection (Notion database schema, HubSpot custom properties, Salesforce custom objects, Asana project list) gets a `// dynamic` comment so the reader knows to call `getInputFieldsSchema` for live verification.
+- **Mark connection-dependent inputs `// dynamic`.** Anything whose shape depends on the user's specific connection (Notion database schema, HubSpot custom properties, Salesforce custom objects, Asana project list) gets a `// dynamic` comment so the reader knows to call `getActionInputFieldsSchema` for live verification.
 - **One JTBD per file.** Single-app and single-pattern examples target ~20-40 lines; chained examples 50-100. Each file fits on one screen.
 - **Top comment block** with one-sentence description, JTBD, Apps, Run command. Chained examples also list Pattern (fan-out / branching / transform pipeline / aggregation).
 

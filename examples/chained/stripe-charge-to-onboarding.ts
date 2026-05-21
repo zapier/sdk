@@ -11,7 +11,7 @@
  * Run: npx tsx examples/chained/stripe-charge-to-onboarding.ts ch_test_123
  *
  * Inputs marked `// dynamic` depend on the connection's specific config —
- * verify with: zapier.getInputFieldsSchema({ app, actionType, action }).
+ * verify with: zapier.getActionInputFieldsSchema({ app, actionType, action }).
  */
 
 import { createZapierSdk } from "@zapier/zapier-sdk";

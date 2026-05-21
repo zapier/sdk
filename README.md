@@ -31,7 +31,7 @@ await slack.write.direct_message({
 
 ## For agents
 
-If you are an AI agent: read [AGENTS.md](./AGENTS.md) first. It explains how this repo is laid out, where to find worked examples for any JTBD, and the rules of engagement (no hallucinating method names; use `listActions` / `getInputFieldsSchema` to discover capabilities at runtime).
+If you are an AI agent: read [AGENTS.md](./AGENTS.md) first. It explains how this repo is laid out, where to find worked examples for any JTBD, and the rules of engagement (no hallucinating method names; use `listActions` / `getActionInputFieldsSchema` to discover capabilities at runtime).
 
 To install this as a skill in your runtime: `npx skills add zapier/sdk` — adds [`skills/zapier-sdk/SKILL.md`](./skills/zapier-sdk/SKILL.md) to your local skills directory.
 
@@ -50,7 +50,7 @@ To install this as a skill in your runtime: `npx skills add zapier/sdk` — adds
 
 - **One auth surface for 9,000+ apps**. OAuth handled. Tokens never leave Zapier.
 - **Safe by default**. Org-level governance, audit trail, intercept/log/report what your agents do with your APIs.
-- **Discoverable at runtime**. `listApps`, `listActions`, `getInputFieldsSchema` — agents can explore the API without you hardcoding it.
+- **Discoverable at runtime**. `listApps`, `listActions`, `getActionInputFieldsSchema` — agents can explore the API without you hardcoding it.
 - **Type-safe**. Per-app, per-action types generated from the live integration catalog.
 
 ## Examples

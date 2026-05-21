@@ -8,7 +8,7 @@
  *
  * Salesforce field names depend on your org's schema. The output below assumes
  * standard Lead fields (Id, Email, Company, CreatedDate). Verify with:
- *   zapier.getInputFieldsSchema({ app: "salesforce", actionType: "search", action: "find_records_v2" })
+ *   zapier.getActionInputFieldsSchema({ app: "salesforce", actionType: "search", action: "find_records_v2" })
  */
 
 import { createZapierSdk } from "@zapier/zapier-sdk";
