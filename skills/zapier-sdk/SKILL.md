@@ -55,7 +55,7 @@ When working with the Zapier SDK:
 
 1. Always verify against the official docs: https://docs.zapier.com/sdk/reference
 2. Never hallucinate method names — use only methods documented in the official Zapier SDK reference
-3. If unsure about an action's input fields, use `getActionInputFieldsSchema` or `listActionInputFields` to discover them at runtime
+3. If unsure about an action's input fields, use `getActionInputFieldsSchema` to discover them at runtime
 4. If unsure about available actions for an app, use `listActions` to discover them
 
 ## Authentication
