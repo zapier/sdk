@@ -73,4 +73,4 @@ PRs and feature requests welcome. Start with [CONTRIBUTING.md](./CONTRIBUTING.md
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+This SDK's source code is licensed under the MIT License (see [LICENSE](./LICENSE)). The MIT License covers the code only. Using the Zapier service and APIs through this SDK is governed separately by the [Zapier Terms of Service](https://zapier.com/legal/terms-of-service) or your other agreement with Zapier for use of the Zapier service, which apply regardless of the code license.
