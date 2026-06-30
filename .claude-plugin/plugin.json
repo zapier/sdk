@@ -1,6 +1,6 @@
 {
   "name": "sdk",
-  "description": "Docs and examples corpus for the Zapier SDK on npm. Connect to 9,000+ apps from your agent or backend.",
+  "description": "Agent skills and verified examples for writing Zapier SDK code that works.",
   "version": "0.1.0",
   "author": {
     "name": "Zapier",
