@@ -1,0 +1,23 @@
+{
+  "name": "sdk",
+  "description": "Agent skills and verified examples for writing Zapier SDK code that works.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Zapier",
+    "email": "support@zapier.com",
+    "url": "https://zapier.com"
+  },
+  "homepage": "https://docs.zapier.com/sdk",
+  "repository": "https://github.com/zapier/sdk",
+  "license": "MIT",
+  "keywords": [
+    "zapier",
+    "sdk",
+    "agent",
+    "ai-agent",
+    "mcp",
+    "automation",
+    "integration",
+    "typescript"
+  ]
+}
