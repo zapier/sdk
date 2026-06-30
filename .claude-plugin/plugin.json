@@ -19,8 +19,5 @@
     "automation",
     "integration",
     "typescript"
-  ],
-  "skills": [
-    "./skills/zapier-sdk/"
   ]
 }
