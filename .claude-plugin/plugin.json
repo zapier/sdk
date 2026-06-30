@@ -1,0 +1,26 @@
+{
+  "name": "zapier-sdk",
+  "description": "Docs and examples corpus for the Zapier SDK on npm. Connect to 9,000+ apps from your agent or backend.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Zapier",
+    "email": "support@zapier.com",
+    "url": "https://zapier.com"
+  },
+  "homepage": "https://docs.zapier.com/sdk",
+  "repository": "https://github.com/zapier/sdk",
+  "license": "MIT",
+  "keywords": [
+    "zapier",
+    "sdk",
+    "agent",
+    "ai-agent",
+    "mcp",
+    "automation",
+    "integration",
+    "typescript"
+  ],
+  "skills": [
+    "./skills/zapier-sdk/"
+  ]
+}
