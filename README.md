@@ -4,34 +4,11 @@ Let your agent connect to anything. Zapier handles the keys.
 
 Programmatic access to Zapier's full app ecosystem via [`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk) on npm. Any API call, on behalf of a user.
 
-This repo is the docs and runnable examples corpus. Install the SDK from npm; clone here to read, grep, and run the examples that show what it can do.
-
-## Install with your favorite AI coding assistant
-
-Drop every best practice for writing Zapier SDK code straight into your agent's context. Your agent picks up:
-
-- **The `zapier-sdk` skill**: how to authenticate, discover apps and actions at runtime, run actions without inventing method names, and reach for the right escape hatch when there's no first-class action.
-- **The `zapier-sdk-explorer` subagent**: a read-only investigator that resolves exact app / action / field IDs against the live Zapier catalog before your agent writes a line of code.
-- **The verified examples corpus**: every action key checked against `listActions` on the way in, so your agent has canonical, copy-paste-ready patterns to grep.
-
-Result: fewer round trips to the docs, no more invented action keys, and workflows that work the first time.
-
-### Claude Code
-
-```
-/plugin marketplace add zapier/marketplace
-/plugin install sdk@zapier
-```
-
-### Cursor, Codex, Copilot, and other assistants
-
-The [skill](./skills/zapier-sdk/) conforms to [agentskills.io](https://agentskills.io) so any conformant runtime can load it directly. For tools without native agentskills.io support, clone the repo and reference `skills/zapier-sdk/SKILL.md` from your assistant's rules or instructions file (`.cursorrules`, `AGENTS.md`, `.github/copilot-instructions.md`, etc.):
-
-```
-git clone https://github.com/zapier/sdk.git
-```
+This repo bundles the SDK's docs, verified examples, and installable agent skills.
 
 ## Getting started
+
+Prefer to let your AI coding assistant handle setup? [Install as a plugin instead](#install-with-your-favorite-ai-coding-assistant).
 
 ### 1. Install
 
@@ -94,6 +71,31 @@ The [`examples/`](./examples) directory is the heart of this repo — indexed th
 - **[`by-app/`](./examples/by-app)** — plain single-action SDK examples, one authenticated call.
 - **[`by-domain/`](./examples/by-domain)** — curation-only READMEs mapping a domain (engineering, real estate, ...) to the examples that matter.
 - **[`by-pattern/`](./examples/by-pattern)** — end-to-end automations by shape (notify-on-event, data-sync, lead-routing, scheduled-report).
+
+## Install with your favorite AI coding assistant
+
+Drop every best practice for writing Zapier SDK code straight into your agent's context. Your agent picks up:
+
+- **The `zapier-sdk` skill**: how to authenticate, discover apps and actions at runtime, run actions without inventing method names, and reach for the right escape hatch when there's no first-class action.
+- **The `zapier-sdk-explorer` subagent**: a read-only investigator that resolves exact app / action / field IDs against the live Zapier catalog before your agent writes a line of code.
+- **The verified examples corpus**: every action key checked against `listActions` on the way in, so your agent has canonical, copy-paste-ready patterns to grep.
+
+Result: fewer round trips to the docs, no more invented action keys, and workflows that work the first time.
+
+### Claude Code
+
+```
+/plugin marketplace add zapier/marketplace
+/plugin install sdk@zapier
+```
+
+### Cursor, Codex, Copilot, and other assistants
+
+The [skill](./skills/zapier-sdk/) conforms to [agentskills.io](https://agentskills.io) so any conformant runtime can load it directly. For tools without native agentskills.io support, clone the repo and reference `skills/zapier-sdk/SKILL.md` from your assistant's rules or instructions file (`.cursorrules`, `AGENTS.md`, `.github/copilot-instructions.md`, etc.):
+
+```
+git clone https://github.com/zapier/sdk.git
+```
 
 ## Learn more
 
