@@ -19,7 +19,8 @@ Each file below is authoritative for a slice of the repo. Read them; don't re-de
 - **[`examples/by-pattern/README.md`](./examples/by-pattern/README.md)**: conventions for durable workflows.
 - **[`examples/by-domain/README.md`](./examples/by-domain/README.md)**: the symlink-only audience index.
 - **[`.github/scripts/README.md`](./.github/scripts/README.md)**: CI checks (structural + live-catalog audit).
-- **[`skills/zapier-sdk/SKILL.md`](./skills/zapier-sdk/SKILL.md)**: installable skill manifest.
+- **[`skills/zapier-sdk/SKILL.md`](./skills/zapier-sdk/SKILL.md)**: installable skill manifest (cross-platform).
+- **[`agents/README.md`](./agents/README.md)**: optional Claude Code subagents that pair with the skill.
 
 ## When to use this SDK vs. alternatives
 
