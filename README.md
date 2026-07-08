@@ -1,76 +1,95 @@
 # Zapier SDK
 
-Connect your app, agent, or backend to 9,000+ apps. Run actions, manage user connections, chain multiple apps to complete one task. The SDK handles token refresh, retries, and API differences.
+Let your agent connect to anything. Zapier handles the keys.
 
-> This repo is the docs and examples corpus for [`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk) on npm. The SDK source isn't published here yet.
+Programmatic access to Zapier's full app ecosystem via [`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk) on npm. Any API call, on behalf of a user.
 
-## Five-minute path to a working call
+This repo is the docs and runnable examples corpus. Install the SDK from npm; clone here to read, grep, and run the examples that show what it can do.
+
+## Getting started
+
+### 1. Install
 
 ```bash
 npm install @zapier/zapier-sdk
 npm install -D @zapier/zapier-sdk-cli @types/node typescript
+```
+
+### 2. Authenticate
+
+Log in once. Your credentials get stored on your machine and picked up automatically the next time you call `createZapierSdk()`.
+
+```bash
 npx zapier-sdk login
+npx zapier-sdk get-profile
 ```
 
-```typescript
-import { createZapierSdk } from "@zapier/zapier-sdk";
+### 3. Connect an app
 
-const zapier = createZapierSdk();
+Every action needs a *connection*: an OAuth grant Zapier holds for the app you're calling. Add one (or several) for whichever apps you want to try. Each `create-connection` command opens a browser for OAuth.
 
-const { data: connection } = await zapier.findFirstConnection({
-  app: "slack",
-  owner: "me",
-});
-
-const slack = zapier.apps.slack({ connection: connection.id });
-
-await slack.write.direct_message({
-  inputs: { channel: "U12345", text: "Hello from Zapier SDK" },
-});
+```bash
+npx zapier-sdk list-connections
+npx zapier-sdk create-connection notion
+npx zapier-sdk create-connection gmail
+npx zapier-sdk create-connection google-sheets
+npx zapier-sdk create-connection airtable
 ```
 
-## For agents
+Any of Zapier's 9,000+ apps works. Swap `notion` for the slug you need.
 
-If you are an AI agent: read [AGENTS.md](./AGENTS.md) first. It explains how this repo is laid out, where to find worked examples for any JTBD, and the rules of engagement (no hallucinating method names; use `listActions` / `getActionInputFieldsSchema` to discover capabilities at runtime).
+### 4. Fire an action
 
-To install this as a skill in your runtime: `npx skills add zapier/sdk` — adds [`skills/zapier-sdk/SKILL.md`](./skills/zapier-sdk/SKILL.md) to your local skills directory.
+Once you have a connection, `run-action` calls any action from the CLI.
 
-## For humans
+```bash
+# Search Notion pages by title
+npx zapier-sdk run-action notion search page_by_title \
+  --inputs '{"title":"Meeting Notes","exact_match":"no"}'
 
-| You want to… | Go to… |
-|---|---|
-| Get started in 5 minutes | The block above, then [`examples/`](./examples) |
-| See real automation examples | [`examples/`](./examples) — sorted three ways |
-| See what Zapier really does — chain multiple apps | [`examples/chained/`](./examples/chained) |
-| Look up a method | [docs.zapier.com/sdk/reference](https://docs.zapier.com/sdk/reference) |
-| Use the CLI | [docs.zapier.com/sdk/cli-reference](https://docs.zapier.com/sdk/cli-reference) |
-| Use Zapier from an MCP client | [github.com/zapier/zapier-mcp](https://github.com/zapier/zapier-mcp) |
+# Search Gmail with the standard Gmail query syntax
+npx zapier-sdk run-action gmail search message \
+  --inputs '{"query":"from:receipts@stripe.com"}'
 
-## Why use this
+# Look up a Google Sheets row by column value
+npx zapier-sdk run-action google-sheets search lookup_row \
+  --inputs '{"spreadsheet":"<sheet-id>","worksheet":"<tab-id>","lookup_key":"Email","lookup_value":"jane@example.com"}'
 
-- **One auth surface for 9,000+ apps**. OAuth handled. Tokens never leave Zapier.
-- **Safe by default**. Org-level governance, audit trail, intercept/log/report what your agents do with your APIs.
-- **Discoverable at runtime**. `listApps`, `listActions`, `getActionInputFieldsSchema` — agents can explore the API without you hardcoding it.
-- **Type-safe**. Per-app, per-action types generated from the live integration catalog.
+# Find an Airtable record by field
+npx zapier-sdk run-action airtable search findRecord \
+  --inputs '{"applicationId":"<base-id>","tableName":"Leads","searchByField":"Email","searchByValue":"jane@example.com"}'
+```
+
+See more actions in [`examples/by-app/`](./examples/by-app). Full API reference at [docs.zapier.com/sdk/reference](https://docs.zapier.com/sdk/reference). Want to see more examples in this repo? [Open a PR](./CONTRIBUTING.md) — contributions welcome.
 
 ## Examples
 
-The [`examples/`](./examples) directory is the heart of this repo — runnable automations indexed three ways:
+The [`examples/`](./examples) directory is the heart of this repo — indexed three ways:
 
-- **[`by-pattern/`](./examples/by-pattern)** — when you know the *shape* (notify-on-event, data-sync, lead-routing, scheduled-report) but not the apps
-- **[`by-app/`](./examples/by-app)** — when you know the *app* (Slack, Salesforce, Notion, Zapier Tables) and want to see what's possible
-- **[`chained/`](./examples/chained)** — multi-app workflows. The Zapier superpower: connecting apps to complete a task no single integration can. *Start here.*
+- **[`by-app/`](./examples/by-app)** — plain single-action SDK examples, one authenticated call.
+- **[`by-domain/`](./examples/by-domain)** — curation-only READMEs mapping a domain (engineering, real estate, ...) to the examples that matter.
+- **[`by-pattern/`](./examples/by-pattern)** — end-to-end automations by shape (notify-on-event, data-sync, lead-routing, scheduled-report).
 
-Read [`examples/README.md`](./examples/README.md) for the corpus map.
+## Learn more
 
-## Companion
-
-- **[zapier-mcp](https://github.com/zapier/zapier-mcp)** — Zapier as an MCP server. Use when you want tool-calling from inside Cursor, Claude Desktop, or Codex without writing code.
+- **[zapier.com/sdk](https://zapier.com/sdk)** — product page, pricing, and what the SDK unlocks.
+- **[docs.zapier.com/sdk](https://docs.zapier.com/sdk)** — SDK guides and tutorials.
+- **[docs.zapier.com/sdk/reference](https://docs.zapier.com/sdk/reference)** — full method reference.
+- **[docs.zapier.com/sdk/cli-reference](https://docs.zapier.com/sdk/cli-reference)** — CLI reference for `zapier-sdk`.
+- **[`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk)** — runtime SDK on npm.
+- **[`@zapier/zapier-sdk-cli`](https://www.npmjs.com/package/@zapier/zapier-sdk-cli)** — CLI companion on npm.
+- **[Zapier MCP](https://github.com/zapier/zapier-mcp)** — the MCP-server alternative for tool-calling from Cursor, Claude Desktop, or Codex.
+- **[docs.zapier.com/llms.txt](https://docs.zapier.com/llms.txt)** — LLM-friendly index of the docs.
+- **[docs.zapier.com](https://docs.zapier.com)** — everything else Zapier.
 
 ## Contributing
 
 PRs and feature requests welcome. Start with [CONTRIBUTING.md](./CONTRIBUTING.md). For SDK security issues, email **security@zapier.com** — don't open a public issue.
 
+## Trademarks
+
+Product and company names used in these examples are trademarks of their respective owners and are used only to identify the service each example integrates with. These examples are not affiliated with, endorsed by, or sponsored by those companies.
+
 ## License
 
-This SDK's source code is licensed under the MIT License (see [LICENSE](./LICENSE)). The MIT License covers the code only. Using the Zapier service and APIs through this SDK is governed separately by the [Zapier Terms of Service](https://zapier.com/legal/terms-of-service) or your other agreement with Zapier for use of the Zapier service, which apply regardless of the code license.
+MIT (see [LICENSE](./LICENSE)) — covers the code only. Using the Zapier service and APIs through this SDK is governed separately by the [Zapier Terms of Service](https://zapier.com/legal/terms-of-service) or your other agreement with Zapier for use of the Zapier service.

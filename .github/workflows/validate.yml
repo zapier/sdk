@@ -1,0 +1,82 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  structure-and-typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Locate pnpm store
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> "$GITHUB_ENV"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('examples/by-pattern/*/*/package.json') }}
+          restore-keys: |
+            pnpm-store-${{ runner.os }}-
+
+      - name: Structural checks
+        run: node .github/scripts/validate-corpus.mjs
+
+      - name: Typecheck every workflow
+        run: |
+          set -euo pipefail
+          fail=0
+          for dir in examples/by-pattern/*/*/; do
+            echo "::group::typecheck $dir"
+            if ! (
+              cd "$dir"
+              pnpm install --prefer-offline --silent
+              npx --no-install tsc --noEmit \
+                --strict \
+                --target es2022 \
+                --module esnext \
+                --moduleResolution bundler \
+                --esModuleInterop \
+                --skipLibCheck \
+                workflow.ts
+            ); then
+              fail=1
+            fi
+            echo "::endgroup::"
+          done
+          exit $fail
+
+  cli-and-sdk-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install @zapier/zapier-sdk, @zapier/zapier-sdk-cli, and typescript
+        run: npm install --no-audit --no-fund --no-save @zapier/zapier-sdk-cli @zapier/zapier-sdk typescript@5
+
+      - name: CLI help
+        run: npx --no-install zapier-sdk --help
+
+      - name: SDK loads
+        run: node -e "import('@zapier/zapier-sdk').then(m => { const keys = Object.keys(m); console.log('SDK exports', keys.length, 'symbols; first few:', keys.slice(0, 8).join(', ')); })"
+
+      - name: Audit every runAction call against the live catalog (skips without ZAPIER_CLIENT_ID / ZAPIER_CLIENT_SECRET)
+        env:
+          ZAPIER_CLIENT_ID: ${{ secrets.ZAPIER_CLIENT_ID }}
+          ZAPIER_CLIENT_SECRET: ${{ secrets.ZAPIER_CLIENT_SECRET }}
+        run: node .github/scripts/audit.mjs

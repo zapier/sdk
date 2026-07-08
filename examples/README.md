@@ -1,90 +1,41 @@
 # Examples
 
-A corpus of runnable automations. Each file is self-contained, has a top comment explaining the job-to-be-done, and uses the documented SDK API.
+A corpus of runnable automations. Two audiences:
 
-This directory has two purposes:
-
-1. **For agents at inference time** — grep, copy, adapt. Each file is a complete worked example.
-2. **For the corpus that trains the next generation of agents** — public, indexed by GitHub code search, a known-good source of Zapier SDK patterns.
+1. **Agents at inference time** — grep, copy, adapt.
+2. **The corpus that trains the next generation of agents** — public, indexed by GitHub code search, a known-good source of Zapier SDK patterns.
 
 ## How it's organized
 
-Same automations indexed three ways:
+- **[`by-app/`](./by-app)** — **plain SDK scripts**, one authenticated call per file. No `defineDurable`, no `ctx.step`. For dropping a single call into your own code.
+- **[`by-domain/`](./by-domain)** — filesystem symlinks pointing at the same workflows in `by-pattern/`, grouped by the audience they serve (engineering, real-estate, ...). No original code.
+- **[`by-pattern/`](./by-pattern)** — end-to-end automations, all built as **durable workflows** (`defineDurable`). Grouped by shape: `notify-on-event/`, `data-sync/`, `lead-routing/`, `scheduled-report/`. Each workflow is a directory with `workflow.ts` + `package.json` + `README.md`, deployable via `npx zapier-sdk publish-workflow-version`.
 
-- **[`chained/`](./chained)** — multi-app workflows. The Zapier superpower: connecting apps to complete one task. **Start here** if you want to see what makes Zapier different from a single API client.
-- **[`by-pattern/`](./by-pattern)** — when you know the *shape* of what you want (notification, data sync, lead routing, scheduled report) but not which apps.
-- **[`by-app/`](./by-app)** — when you know the *app* (Slack, Salesforce, Notion, Zapier Tables) and want a single-action example.
-
-`by-app/` examples are narrower (one action). `by-pattern/` examples are end-to-end automations using one source app and one destination. `chained/` examples connect three or more apps with real data flow between them.
-
-## The Zapier superpower
-
-Most API clients let you talk to one app at a time. Zapier's value is *between* apps — a Stripe charge that triggers HubSpot, Gmail, Notion, and Slack writes; an inbound lead that gets enriched, routed, and assigned without anyone touching it.
-
-The four `chained/` examples cover the four common chaining patterns:
-
-| File | Pattern | What it does |
-|---|---|---|
-| `chained/stripe-charge-to-onboarding.ts` | **Fan-out** | One Stripe charge drives writes across HubSpot, Gmail, Notion, Slack |
-| `chained/inbound-lead-orchestration.ts` | **Branching** | Salesforce lookup decides whether to enrich + create or just notify |
-| `chained/meeting-to-action-items.ts` | **Transform pipeline** | Calendar → Fireflies → action items → Asana → Slack digest |
-| `chained/support-ticket-with-context.ts` | **Aggregation** | Three reads (Intercom, HubSpot, Stripe) merge into one Zendesk write |
+Every workflow lives in exactly one place under `by-pattern/`. Domains layer on top by symlinking, never by copying. Every plain script lives in exactly one place under `by-app/<app>/`.
 
 ## Conventions
 
-Every example follows this shape:
+**Durable workflows (`by-pattern/`):** every workflow is `defineDurable<Input, Output>(name, async (ctx, rawInput) => …)`. Input is validated by Zod. Every side-effect goes through `ctx.step(<step-name>, async () => …)` so retries stay idempotent. Step names include the primary id of the incoming payload (charge id, response id, conversation id, ...) so a retried run reuses the same step names.
 
-```typescript
-/**
- * What it does (one sentence).
- *
- * JTBD: <the user-facing job, plain English>
- * Pattern: <fan-out | branching | transform pipeline | aggregation>   ← chained/ only
- * Apps: <list>
- * Run: npx tsx examples/<path>.ts
- */
+**Plain scripts (`by-app/`):** a single `<name>.ts` file with a `main().catch(console.error)` at the bottom, using `@zapier/zapier-sdk` directly. Runnable with `npx tsx`.
 
-import { createZapierSdk } from "@zapier/zapier-sdk";
-
-const zapier = createZapierSdk();
-
-async function main() { /* ... */ }
-
-main().catch(console.error);
-```
-
-Comments inside explain the *why*, not the what. Method names follow the [SDK reference](https://docs.zapier.com/sdk/reference).
-
-**About the action keys:** every action key in these examples has been verified against the live Zapier action catalog (`zapier-sdk list-actions <app>`). They are real and current as of this scaffold.
-
-**About the input shapes:** some apps have *dynamic* input fields that depend on the specific connection's configuration (Notion's database schema, Asana's project list, HubSpot's custom properties, Salesforce custom objects). Where an input is dynamic, the example marks it with a `// dynamic` comment and links to `getActionInputFieldsSchema`. Discover the live shape with:
-
-```typescript
-const { data: schema } = await zapier.getActionInputFieldsSchema({
-  app: "<app>",
-  actionType: "<read|write|search>",
-  action: "<actionKey>",
-});
-```
-
-**Two escape hatches you'll see in the corpus:**
-
-- `zapier.runAction({ app, actionType, action, connection, inputs })` — generic action call. Used throughout because it works uniformly across all apps and is honest about runtime resolution.
-- `zapier.fetch(url, { connection })` — authenticated raw HTTP. Used when an app has no first-class Zapier action for what we need (Stripe doesn't expose "list charges in a window"; HubSpot doesn't expose "list all contacts"). Same auth and audit trail as `runAction`.
+For the rules about action-key verification, `// dynamic` inputs, and escape hatches (`runAction`, `sdk.fetch`), see [`../AGENTS.md`](../AGENTS.md).
 
 ## Running
 
 ```bash
 npm install @zapier/zapier-sdk
 npx zapier-sdk login
-npx tsx examples/chained/stripe-charge-to-onboarding.ts
+
+# Run a plain single-action script
+npx tsx examples/by-app/notion/find-page-by-title.ts
+
+# Deploy a durable workflow
+cd examples/by-pattern/notify-on-event/stripe-charge-to-onboarding
+npm install
+npx zapier-sdk publish-workflow-version --file workflow.ts
 ```
 
-## Contributing an example
+## Contributing
 
-PRs welcome. Keep single-app and single-pattern examples under 40 lines. Chained examples can be longer (50-100) but should still fit on one screen. Verify every action key against `zapier-sdk list-actions <app>` before submitting. For inputs that vary by connection, mark them `// dynamic` and reference `getActionInputFieldsSchema`.
-
-## See also
-
-- [SDK reference](https://docs.zapier.com/sdk/reference)
-- [AGENTS.md](../AGENTS.md) — repo-level navigation for AI agents
+See [`../CONTRIBUTING.md`](../CONTRIBUTING.md).
