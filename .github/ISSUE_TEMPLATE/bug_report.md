@@ -28,7 +28,7 @@ labels: ["bug"]
 - SDK version: <!-- e.g. 0.43.0 -->
 - Node version: <!-- e.g. 20.11.0 -->
 - OS: <!-- e.g. macOS 14.5 -->
-- App involved (if applicable): <!-- e.g. Slack, Salesforce -->
+- App involved (if applicable): <!-- e.g. Notion, HubSpot -->
 
 ## Anything else
 

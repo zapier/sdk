@@ -7,7 +7,7 @@
  * Run: npx tsx examples/by-app/notion/create-page.ts
  *
  * Notion property shape depends on your database's schema. Verify with:
- *   zapier.getActionInputFieldsSchema({ app: "notion", actionType: "write", action: "create_database_item" })
+ *   zapier.getActionInputFieldsSchema({ app: "NotionCLIAPI", actionType: "write", action: "create_database_item" })
  */
 
 import { createZapierSdk } from "@zapier/zapier-sdk";
@@ -21,12 +21,12 @@ async function main() {
   });
 
   await zapier.runAction({
-    app: "notion",
+    appKey: "NotionCLIAPI",
     actionType: "write",
-    action: "create_database_item",
+    actionKey: "create_database_item",
     connection: connection.id,
     inputs: {
-      database_id: process.env.NOTION_DB_ID, // dynamic — pick the target database
+      datasource: process.env.NOTION_DB_ID, // dynamic. Pick the target database.
       properties: {
         Name: { title: [{ text: { content: "Q2 Planning Notes" } }] },
         Status: { select: { name: "Draft" } },

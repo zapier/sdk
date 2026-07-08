@@ -46,7 +46,7 @@ async function main() {
           event: "agent.tool_call",
           actor: "claude-opus",
           timestamp: new Date().toISOString(),
-          metadata: { tool: "send_slack_message", success: true },
+          metadata: { tool: "send_discord_message", success: true },
         },
       },
     ],

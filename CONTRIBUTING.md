@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for considering a contribution. This repo is the docs and examples corpus for [`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk). The SDK source lives elsewhere — bug reports and feature requests for the SDK itself belong in that repo. What lands *here* is examples, agent-readable docs (`AGENTS.md`, `CLAUDE.md`), and the `SKILL.md` manifest.
+Thanks for considering a contribution. This repo is the docs and examples corpus for [`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk). The SDK source lives elsewhere — bug reports and feature requests for the SDK itself belong in that repo.
 
 ## Before you open anything
 
@@ -11,33 +11,25 @@ Thanks for considering a contribution. This repo is the docs and examples corpus
 
 ## Contributing an example
 
-Examples are the heart of this repo. They land in pretrain corpora, get grepped by agents at runtime, and are the fastest way for a new user to see what the SDK can do.
+Examples are the heart of this repo. Rules of engagement — action-key correctness, `// dynamic` inputs, `runAction` vs typed forms — live in [`AGENTS.md`](./AGENTS.md); follow those.
 
-Rules:
+Layout rules:
 
-1. **Action keys must be real.** Verify with `npx zapier-sdk list-actions <app>` before submitting. The corpus stays trustworthy because every key has been checked.
-2. **Use the generic `runAction` form** unless the typed action (`zapier.apps.<key>.<type>.<action>`) is documented in the [SDK reference](https://docs.zapier.com/sdk/reference). The typed form is reserved for actions we've committed to as a stable surface.
-3. **Mark dynamic inputs `// dynamic`.** Anything whose shape depends on the connection's specific config (Notion database schema, HubSpot custom properties, Salesforce org schema, etc.) gets a `// dynamic` comment so readers know to call `getActionInputFieldsSchema` for live verification.
-4. **One JTBD per file, one screen long.** Single-app and single-pattern examples target ~20-40 lines. Chained examples can run 50-100. Keep each file scannable.
-5. **Top comment block** with: one-sentence description, JTBD, Apps list, Run command. Chained examples also list the Pattern (fan-out / branching / transform pipeline / aggregation).
+- **Which folder?** See [`examples/README.md`](./examples/README.md) for the three-way index (`by-app/`, `by-pattern/`, `by-domain/`) and what belongs where.
+- **`by-app/`** — one file, one action, ~40 lines. See [`examples/by-app/README.md`](./examples/by-app/README.md).
+- **`by-pattern/`** — durable-workflow directory (`workflow.ts` + `package.json` + `README.md`). See [`examples/by-pattern/README.md`](./examples/by-pattern/README.md).
+- **`by-domain/`** — symlinks only, no original code. See [`examples/by-domain/README.md`](./examples/by-domain/README.md).
 
-See [`examples/README.md`](./examples/README.md) for the corpus map.
+## CI
 
-## Running an example locally
-
-```bash
-npx zapier-sdk login                          # one-time auth
-npx tsx examples/chained/stripe-charge-to-onboarding.ts
-```
-
-There's no build, lint, or test step in this repo — `package.json` has no `scripts` block. Action-key correctness (rule 1 above) is the integrity contract for the corpus.
+Every PR runs [`.github/workflows/validate.yml`](./.github/workflows/validate.yml). Two scripts do the work — see [`.github/scripts/README.md`](./.github/scripts/README.md) for what each checks, how to run them locally, and how to enable the credentialed audit on a fork.
 
 ## Commit messages
 
 Imperative mood, focused on the *why*. Examples:
 
-- `Add chained example for HubSpot to Salesforce lead handoff`
-- `Fix Slack channel resolution in post-channel-message example`
+- `Add chained example for Typeform lead to HubSpot upsert`
+- `Fix Notion database property mapping in create-page example`
 - `Drop deprecated runActionDeprecated path from corpus`
 
 Avoid `update stuff`, `wip`, or commit messages that won't make sense to a reader six months from now.

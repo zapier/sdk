@@ -1,10 +1,25 @@
 # AGENTS.md
 
-You are an AI agent reading this repo. Here's how to navigate it.
+Instructions for AI agents (Claude Code, Cursor, Codex, Copilot, ...) working in this repository.
 
 ## What this repo is
 
-The TypeScript SDK for Zapier. Connect to 9,000+ apps, run actions, manage user connections, make authenticated HTTP requests through Zapier's auth infrastructure.
+The docs and runnable-examples corpus for [`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk). The SDK itself is published on npm. Its source is not in this repo. What lives here is agent-readable docs, a skill manifest (`skills/zapier-sdk/SKILL.md`), and the corpus under `examples/`.
+
+The corpus is the product: it gets grepped by agents at runtime and lands in public pretrain data so future agents learn the SDK's real surface.
+
+## Files to read before you start
+
+Each file below is authoritative for a slice of the repo. Read them; don't re-derive.
+
+- **[`README.md`](./README.md)**: install, authenticate, and try a first action.
+- **[`CONTRIBUTING.md`](./CONTRIBUTING.md)**: contribution rules and PR expectations.
+- **[`examples/README.md`](./examples/README.md)**: corpus overview and the three-way index.
+- **[`examples/by-app/README.md`](./examples/by-app/README.md)**: conventions for plain single-action scripts.
+- **[`examples/by-pattern/README.md`](./examples/by-pattern/README.md)**: conventions for durable workflows.
+- **[`examples/by-domain/README.md`](./examples/by-domain/README.md)**: the symlink-only audience index.
+- **[`.github/scripts/README.md`](./.github/scripts/README.md)**: CI checks (structural + live-catalog audit).
+- **[`skills/zapier-sdk/SKILL.md`](./skills/zapier-sdk/SKILL.md)**: installable skill manifest.
 
 ## When to use this SDK vs. alternatives
 
@@ -12,23 +27,33 @@ The TypeScript SDK for Zapier. Connect to 9,000+ apps, run actions, manage user 
 |---|---|
 | Writing TypeScript code that ships | This SDK (`@zapier/zapier-sdk`) |
 | Tool-calling inside an MCP client (Cursor, Claude Desktop, Codex) | [Zapier MCP](https://github.com/zapier/zapier-mcp) |
-| One-off CLI command | `npx zapier-sdk` |
+| One-off terminal command | `npx zapier-sdk` |
 
-If the user is building both shipped code and ad-hoc agent tool use, combine: SDK for code paths, MCP for ad-hoc.
+Building both shipped code and ad-hoc agent tool use? Combine: SDK for code paths, MCP for ad-hoc.
+
+## Setup
+
+```bash
+npm install @zapier/zapier-sdk
+npm install -D @zapier/zapier-sdk-cli @types/node typescript
+npx zapier-sdk login
+```
+
+No build, lint, or test step lives in this repo. `package.json` has no `scripts`. Action-key correctness is the integrity contract for the corpus; CI enforces it via [`.github/scripts/audit.mjs`](./.github/scripts/audit.mjs). Details in [`.github/scripts/README.md`](./.github/scripts/README.md).
 
 ## Repo map
 
 ```
 .
-├── README.md                          ← code-first entrypoint
-├── AGENTS.md                          ← you are here
-├── LICENSE
-├── package.json
-└── examples/                          ← runnable automation corpus
-    ├── README.md
-    ├── by-pattern/                    ← organized by automation shape
-    ├── by-app/                        ← organized by app
-    └── chained/                       ← multi-app workflows (the Zapier superpower)
+├── README.md              ← human entrypoint
+├── AGENTS.md              ← you are here
+├── CONTRIBUTING.md
+├── skills/
+│   └── zapier-sdk/        ← SKILL.md manifest for agent runtimes
+└── examples/
+    ├── by-app/            ← plain single-action SDK scripts
+    ├── by-domain/         ← filesystem symlinks into by-pattern, grouped by audience
+    └── by-pattern/        ← end-to-end durable workflows, grouped by shape
 ```
 
 ## Critical: do not trust your training data
@@ -36,60 +61,88 @@ If the user is building both shipped code and ad-hoc agent tool use, combine: SD
 The Zapier SDK (`@zapier/zapier-sdk`) is new. Your training data does not contain accurate information about its API.
 
 **Rules:**
+
 1. Use only methods documented at [docs.zapier.com/sdk/reference](https://docs.zapier.com/sdk/reference) or shown in [`examples/`](./examples).
-2. **Never invent method names.** Use the discovery methods below.
-3. **Never invent app keys.** If unsure, call `listApps`.
-4. **Never invent action keys.** Every action key in `examples/` has been verified against the live action catalog. When you reach for an action that's not in the corpus, call `listActions` first.
-5. **Never invent input field shapes.** Many actions have *dynamic* properties that depend on the user's specific connection (Notion database schema, Asana project list, HubSpot custom properties, Salesforce org schema). Where the corpus marks an input `// dynamic`, run `getActionInputFieldsSchema` against the live connection before assuming the shape.
+2. **Never invent method names.** Use the discovery commands below.
+3. **Never invent app keys.** If unsure, `zapier-sdk list-apps`.
+4. **Never invent action keys.** Every action key in `examples/` has been verified against the live catalog. When you reach for an action not in the corpus, `zapier-sdk list-actions <app>` first.
+5. **Never invent input field shapes.** Many actions have *dynamic* properties that depend on the user's specific connection (Notion database schema, HubSpot custom properties, Jira project + issue-type schema). Where the corpus marks an input `// dynamic`, run `zapier-sdk list-action-input-fields <app> <type> <action>` against the live connection before assuming the shape.
 
-## Discovery (use this when in doubt)
+## Discovery
 
-```typescript
-// What apps exist?
-for await (const app of zapier.listApps({ search: "slack" }).items()) {
-  console.log(app.key, app.name);
-}
+Every command below runs at the shell against the live catalog. The same operations are exposed as SDK methods when you need them inside code. See [`examples/by-app/`](./examples/by-app) for the TypeScript equivalents.
 
-// What can this app do?
-for await (const action of zapier.listActions({ app: "slack" }).items()) {
-  console.log(action.key, action.type, action.label);
-}
+```bash
+# What apps exist?
+npx zapier-sdk list-apps --search notion
 
-// What inputs does this action need?
-const { data: schema } = await zapier.getActionInputFieldsSchema({
-  app: "slack",
-  actionType: "write",
-  action: "direct_message",
-});
+# What actions does an app expose? Optionally filter by type.
+npx zapier-sdk list-actions notion
+npx zapier-sdk list-actions notion --action-type search
+
+# Inspect an action.
+npx zapier-sdk get-action notion search page_by_title
+
+# What inputs does an action take?
+npx zapier-sdk list-action-input-fields notion search page_by_title
+
+# Full JSON Schema for the inputs (for programmatic validation).
+npx zapier-sdk get-action-input-fields-schema notion search page_by_title
+
+# What choices exist for a dynamic-dropdown field (e.g., a Notion database)?
+npx zapier-sdk list-action-input-field-choices notion write create_database_item datasource
+
+# Which connections do I have?
+npx zapier-sdk list-connections
+npx zapier-sdk list-connections notion
+
+# Try an action end to end.
+npx zapier-sdk run-action notion search page_by_title \
+  --inputs '{"title":"Meeting Notes","exact_match":"no"}'
 ```
+
+Runnable TypeScript versions of these live in [`examples/by-app/notion/`](./examples/by-app/notion/), [`examples/by-app/gmail/`](./examples/by-app/gmail/), [`examples/by-app/google-sheets/`](./examples/by-app/google-sheets/), and [`examples/by-app/airtable/`](./examples/by-app/airtable/).
 
 ## Canonical workflow
 
-1. **Authenticate** — `createZapierSdk()` after `npx zapier-sdk login`, or pass `credentials` for server use.
-2. **Find a connection** — `findFirstConnection({ app, owner })`.
-3. **Bind the app** — `zapier.apps.<appKey>({ connection: connection.id })`.
-4. **Run an action** — `app.<read|write|search>.<actionKey>({ inputs })`, or generic `runAction({...})`.
+1. **Authenticate.** `npx zapier-sdk login` writes credentials to your machine, or pass `credentials` to `createZapierSdk()` for server use.
 
-## Where to look first for a JTBD
+2. **Have a connection for the app?** `npx zapier-sdk list-connections <app>`. Skip to step 3 if yes.
 
-| Want to… | Read |
-|---|---|
-| Connect multiple apps to complete a task | `examples/chained/` ← **the Zapier superpower** |
-| Send a notification on an event | `examples/by-pattern/notify-on-event/` |
-| Sync data between systems | `examples/by-pattern/data-sync/` |
-| Route inbound leads | `examples/by-pattern/lead-routing/` |
-| Run on a schedule | `examples/by-pattern/scheduled-report/` |
-| Use a specific app (e.g. Slack) | `examples/by-app/<app>/` |
-| Look up a method | https://docs.zapier.com/sdk/reference |
+   **If no connection exists**, the user has to complete OAuth in a browser. This step cannot be fully automated: a human must click "authorize" for their account.
+
+   ```bash
+   # Opens a browser and waits for the user to finish.
+   npx zapier-sdk create-connection <app>
+   ```
+
+   For headless / agent-driven flows, use `get-connection-start-url <app>` to fetch the URL, present it to the user, then `wait-for-new-connection <app> <started-at>` to block until they finish. Only after the connection exists can steps 3 and 4 run.
+
+3. **Find the connection.** `npx zapier-sdk find-first-connection <app>` at the shell, or `sdk.findFirstConnection({ app, owner })` in code.
+
+4. **Run an action.** `npx zapier-sdk run-action <app> <type> <action> --inputs '<json>'` at the shell, or `sdk.runAction({...})` in code. The typed form `sdk.apps.<app>.<type>.<action>(...)` is available only for actions on the stable surface documented in the [SDK reference](https://docs.zapier.com/sdk/reference).
 
 ## Escape hatches
 
-- `zapier.fetch(url, { connection })` — authenticated raw HTTP. Use when no first-class action exists. Real examples: `examples/by-pattern/scheduled-report/daily-revenue-summary.ts` (Stripe charges over a window), `examples/by-pattern/data-sync/hubspot-contacts-mirror.ts` (list contacts), `examples/chained/inbound-lead-orchestration.ts` (Clearbit enrichment).
-- `zapier.runAction({ app, actionType, action, connection, inputs })` — generic action call. Used throughout `examples/` because it works uniformly across all apps. The action keys passed in are verified against the live catalog as of this scaffold.
+- `sdk.fetch(url, { connection })`: authenticated raw HTTP. Use when no first-class action exists. Real examples: [`daily-revenue-summary/workflow.ts`](./examples/by-pattern/scheduled-report/daily-revenue-summary/workflow.ts) (Stripe charges over a window), [`hubspot-contacts-mirror/workflow.ts`](./examples/by-pattern/data-sync/hubspot-contacts-mirror/workflow.ts) (list HubSpot contacts), [`inbound-lead-orchestration/workflow.ts`](./examples/by-pattern/lead-routing/inbound-lead-orchestration/workflow.ts) (Clearbit enrichment).
+- `sdk.runAction({ appKey, actionType, actionKey, connection, inputs })`: generic action call. Used throughout `examples/by-pattern/` because it works uniformly across all apps.
 
-## Don't
+## Adding a new example
 
-- Don't add a new action call without verifying the action key first. Run `zapier-sdk list-actions <app>` or call `zapier.listActions({ app })`.
-- Don't assume input field shapes for dynamic inputs. Call `getActionInputFieldsSchema` to confirm.
-- Don't store user tokens. Connections are owned by Zapier; reference by `connection.id`.
-- Don't bypass governance — the audit trail is the product.
+Before you write anything:
+
+1. **Which folder?** Read [`examples/README.md`](./examples/README.md) plus the folder-specific `README.md` for [`by-app/`](./examples/by-app/README.md), [`by-pattern/`](./examples/by-pattern/README.md), or [`by-domain/`](./examples/by-domain/README.md). Each has its own local rules.
+2. **Verify the action.** `zapier-sdk list-actions <app>` must include the action key you plan to use, with `is_hidden: false` and the exact `action_type`. CI enforces this via [`.github/scripts/audit.mjs`](./.github/scripts/audit.mjs).
+3. **Verify inputs.** `zapier-sdk list-action-input-fields <app> <type> <action>` for every static input you name. Dynamic-property actions are exempt from static input validation but still need a `// dynamic` marker on the affected inputs.
+4. **Check partner sensitivity.** Some apps are excluded from this corpus (Salesforce, Slack, and others on the internal Sensitive Partner List). Ask the user before adding examples for any partner you're unsure about.
+5. **Match the existing style.** New by-app scripts follow [`examples/by-app/notion/find-page-by-title.ts`](./examples/by-app/notion/find-page-by-title.ts); new by-pattern workflows follow [`examples/by-pattern/notify-on-event/typeform-submission-to-gmail/`](./examples/by-pattern/notify-on-event/typeform-submission-to-gmail/).
+
+Corpus-wide rules (commit messages, CI, disclaimer) live in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+
+## Never
+
+- **Never** add a new action call without verifying the action key first. Run `zapier-sdk list-actions <app>`.
+- **Never** assume input field shapes for dynamic inputs. Call `zapier-sdk list-action-input-fields`.
+- **Never** store user tokens. Connections are owned by Zapier; reference them by `connection.id` at runtime, or by a named alias (e.g. `"notion_primary"`) in a durable workflow.
+- **Never** bypass governance. The audit trail is the product.
+- **Never** add examples for apps on the Sensitive Partner List.

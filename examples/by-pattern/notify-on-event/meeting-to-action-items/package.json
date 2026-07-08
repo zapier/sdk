@@ -1,0 +1,12 @@
+{
+  "name": "meeting-to-action-items",
+  "type": "module",
+  "dependencies": {
+    "@zapier/zapier-sdk": "0.80.0",
+    "@zapier/zapier-durable": "0.6.1",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "typescript": "latest"
+  }
+}
