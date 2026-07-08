@@ -6,19 +6,30 @@ Programmatic access to Zapier's full app ecosystem via [`@zapier/zapier-sdk`](ht
 
 This repo is the docs and runnable examples corpus. Install the SDK from npm; clone here to read, grep, and run the examples that show what it can do.
 
-## Using Claude Code? Install the plugin.
+## Install with your favorite AI coding assistant
 
-```
-/plugin install sdk@zapier
-```
-
-One command drops every best practice for writing Zapier SDK code straight into your agent's context. Your agent picks up:
+Drop every best practice for writing Zapier SDK code straight into your agent's context. Your agent picks up:
 
 - **The `zapier-sdk` skill**: how to authenticate, discover apps and actions at runtime, run actions without inventing method names, and reach for the right escape hatch when there's no first-class action.
 - **The `zapier-sdk-explorer` subagent**: a read-only investigator that resolves exact app / action / field IDs against the live Zapier catalog before your agent writes a line of code.
 - **The verified examples corpus**: every action key checked against `listActions` on the way in, so your agent has canonical, copy-paste-ready patterns to grep.
 
-Result: fewer round trips to the docs, no more invented action keys, and workflows that work the first time. Not on Claude Code? The [skill](./skills/zapier-sdk/) also conforms to [agentskills.io](https://agentskills.io) and works in any conformant runtime.
+Result: fewer round trips to the docs, no more invented action keys, and workflows that work the first time.
+
+### Claude Code
+
+```
+/plugin marketplace add zapier/marketplace
+/plugin install sdk@zapier
+```
+
+### Cursor, Codex, Copilot, and other assistants
+
+The [skill](./skills/zapier-sdk/) conforms to [agentskills.io](https://agentskills.io) so any conformant runtime can load it directly. For tools without native agentskills.io support, clone the repo and reference `skills/zapier-sdk/SKILL.md` from your assistant's rules or instructions file (`.cursorrules`, `AGENTS.md`, `.github/copilot-instructions.md`, etc.):
+
+```
+git clone https://github.com/zapier/sdk.git
+```
 
 ## Getting started
 
