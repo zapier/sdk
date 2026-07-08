@@ -27,5 +27,11 @@
   "license": "MIT",
   "engines": {
     "node": ">=18"
+  },
+  "scripts": {
+    "generate:cli-reference": "node .github/scripts/generate-cli-reference.mjs"
+  },
+  "devDependencies": {
+    "@zapier/zapier-sdk-cli": "0.65.5"
   }
 }

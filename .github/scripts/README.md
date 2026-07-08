@@ -43,6 +43,20 @@ ZAPIER_CLIENT_ID=... ZAPIER_CLIENT_SECRET=... node .github/scripts/audit.mjs
 
 Rotate credentials with `list-client-credentials` / `delete-client-credentials`.
 
+## `generate-cli-reference.mjs`
+
+Regenerates [`skills/zapier-sdk/references/cli-commands.md`](../../skills/zapier-sdk/references/cli-commands.md) — a compact inventory plus verbatim per-command `--help` output for every `zapier-sdk` CLI command. Ships alongside the hand-written happy-path guide at [`references/cli.md`](../../skills/zapier-sdk/references/cli.md) so skill readers see both the tour and the full surface.
+
+Not on any CI job. Run manually when bumping the pinned `@zapier/zapier-sdk-cli` in [`package.json`](../../package.json) (Renovate will typically open the bump PR):
+
+```bash
+npm install
+npm run generate:cli-reference
+git add skills/zapier-sdk/references/cli-commands.md package.json
+```
+
+The generated file carries a `CLI version: X.Y.Z` header, so the checked-in copy always reflects the currently pinned version.
+
 ## Enabling on a fork or new repo
 
 Store the credential pair as GitHub Actions secrets:

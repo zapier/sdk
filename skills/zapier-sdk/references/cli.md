@@ -77,4 +77,8 @@ npx zapier-sdk list-table-records <table-id>
 - `--page-size <n>`: items per page.
 - `--cursor <string>`: resume from a previous cursor.
 
-Full CLI reference: https://docs.zapier.com/sdk/cli-reference
+## Full command inventory
+
+The commands above are the happy-path subset. For every command the CLI ships — including experimental workflow, trigger-inbox, and utility commands — see [`cli-commands.md`](./cli-commands.md), regenerated verbatim from `zapier-sdk --help` on each release bump.
+
+Detailed schemas and examples: https://docs.zapier.com/sdk/cli-reference
