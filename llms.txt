@@ -1,0 +1,54 @@
+# Zapier SDK: examples and skill corpus
+
+> Runnable examples and an installable agent skill for [`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk), Zapier's TypeScript SDK for programmatic access to 9,000+ app integrations. The SDK source lives on npm. This repo is the docs, verified examples, and skill manifest that AI agents grep at inference time.
+
+Every action key in `examples/` is verified against Zapier's live catalog by CI, so agents that copy from this corpus land on valid calls the first time.
+
+For the broader Zapier developer docs index (MCP, embedding, integration builder, White Label), see [docs.zapier.com/llms.txt](https://docs.zapier.com/llms.txt). The canonical SDK reference is at [docs.zapier.com/sdk](https://docs.zapier.com/sdk).
+
+## Start here
+
+- [README](https://github.com/zapier/sdk/blob/main/README.md): install, authenticate, run your first action.
+- [AGENTS.md](https://github.com/zapier/sdk/blob/main/AGENTS.md): rules of engagement for AI agents working in this repo (action-key verification, dynamic-input handling, escape hatches).
+- [CONTRIBUTING](https://github.com/zapier/sdk/blob/main/CONTRIBUTING.md): PR expectations and layout rules for adding examples.
+
+## Skill and subagents
+
+- [`skills/zapier-sdk/SKILL.md`](https://github.com/zapier/sdk/blob/main/skills/zapier-sdk/SKILL.md): the installable [agentskills.io](https://agentskills.io) manifest covering authentication, discovery, running actions, and escape hatches.
+- [`skills/zapier-sdk/references/cli-commands.md`](https://github.com/zapier/sdk/blob/main/skills/zapier-sdk/references/cli-commands.md): full inventory of `zapier-sdk` CLI commands, generated from `zapier-sdk --help`.
+- [`agents/README.md`](https://github.com/zapier/sdk/blob/main/agents/README.md): optional Claude Code subagents that pair with the skill.
+- [`agents/zapier-sdk-explorer.md`](https://github.com/zapier/sdk/blob/main/agents/zapier-sdk-explorer.md): read-only investigator that resolves exact app, action, and field IDs against the live Zapier catalog.
+
+## Examples
+
+The [`examples/`](https://github.com/zapier/sdk/tree/main/examples) directory is indexed three ways:
+
+- [`examples/README.md`](https://github.com/zapier/sdk/blob/main/examples/README.md): corpus overview and conventions.
+- [`examples/by-app/README.md`](https://github.com/zapier/sdk/blob/main/examples/by-app/README.md): plain single-action scripts, one authenticated call per file.
+- [`examples/by-pattern/README.md`](https://github.com/zapier/sdk/blob/main/examples/by-pattern/README.md): end-to-end durable workflows grouped by shape (notify-on-event, data-sync, lead-routing, scheduled-report).
+- [`examples/by-domain/README.md`](https://github.com/zapier/sdk/blob/main/examples/by-domain/README.md): symlink-only audience index (engineering, real-estate, and other verticals).
+
+## SDK documentation
+
+- [SDK overview](https://docs.zapier.com/sdk/index.md)
+- [Quickstart](https://docs.zapier.com/sdk/quickstart.md)
+- [API reference](https://docs.zapier.com/sdk/reference.md)
+- [CLI reference](https://docs.zapier.com/sdk/cli-reference.md)
+- [Using the CLI](https://docs.zapier.com/sdk/using-the-cli.md)
+- [Using triggers](https://docs.zapier.com/sdk/using-triggers.md)
+- [Deploy with client credentials](https://docs.zapier.com/sdk/deploy.md)
+- [Changelog](https://docs.zapier.com/sdk/changelog.md)
+
+## Packages
+
+- [`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk): the runtime SDK.
+- [`@zapier/zapier-sdk-cli`](https://www.npmjs.com/package/@zapier/zapier-sdk-cli): the CLI companion.
+- [`@zapier/zapier-sdk-core`](https://www.npmjs.com/package/@zapier/zapier-sdk-core): shared core types.
+
+## Optional
+
+- [Zapier MCP](https://github.com/zapier/zapier-mcp): the MCP-server alternative for tool-calling from Cursor, Claude Desktop, or Codex. Reach for it when the deliverable is ad-hoc tool use rather than shipped code.
+- [docs.zapier.com/llms.txt](https://docs.zapier.com/llms.txt): broader Zapier developer-docs index.
+- [zapier.com/sdk](https://zapier.com/sdk): product page and pricing.
+- [Code of Conduct](https://github.com/zapier/sdk/blob/main/CODE_OF_CONDUCT.md)
+- [License](https://github.com/zapier/sdk/blob/main/LICENSE): MIT.

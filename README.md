@@ -107,6 +107,7 @@ git clone https://github.com/zapier/sdk.git
 - **[`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk)** — runtime SDK on npm.
 - **[`@zapier/zapier-sdk-cli`](https://www.npmjs.com/package/@zapier/zapier-sdk-cli)** — CLI companion on npm.
 - **[Zapier MCP](https://github.com/zapier/zapier-mcp)** — the MCP-server alternative for tool-calling from Cursor, Claude Desktop, or Codex.
+- **[`llms.txt`](./llms.txt)** — this repo's LLM-friendly index of the skill, examples, and agents.
 - **[docs.zapier.com/llms.txt](https://docs.zapier.com/llms.txt)** — LLM-friendly index of the docs.
 - **[docs.zapier.com](https://docs.zapier.com)** — everything else Zapier.
 
