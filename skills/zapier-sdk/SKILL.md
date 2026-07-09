@@ -38,16 +38,29 @@ The SDK ships two packages: a TypeScript library and a CLI. Install whichever yo
 Check what's already installed:
 
 ```bash
+# Is the SDK library present?
 ls node_modules/@zapier/zapier-sdk 2>/dev/null && echo "SDK installed" || echo "SDK not installed"
+
+# Is the CLI available?
 npx zapier-sdk --version 2>/dev/null && echo "CLI installed" || echo "CLI not installed"
+
+# Are you logged in? (returns email + account on success, non-zero exit if not)
+npx zapier-sdk get-profile
 ```
+
+There is no `whoami`, no `status`, no `auth`. The command for "who am I logged in as" is `get-profile`. Use `zapier-sdk --help` before guessing any other command name.
 
 If missing:
 
 ```bash
-npm install @zapier/zapier-sdk                                # SDK library
-npm install -D @zapier/zapier-sdk-cli @types/node typescript  # CLI + dev deps
-npx zapier-sdk login                                          # Authenticate (opens browser)
+# SDK library.
+npm install @zapier/zapier-sdk
+
+# CLI plus TypeScript dev deps.
+npm install -D @zapier/zapier-sdk-cli @types/node typescript
+
+# Authenticate (opens a browser).
+npx zapier-sdk login
 ```
 
 Full quickstart: https://docs.zapier.com/sdk
@@ -176,6 +189,7 @@ const { data: schema } = await zapier.getActionInputFieldsSchema({
 - **Dynamic input fields.** Notion database properties, HubSpot custom fields, Jira per-project schemas: none of these are knowable ahead of time. Always run `list-action-input-fields` against the live connection before authoring.
 - **App keys: the SDK's `runAction` wants the CLIAPI-suffixed form.** In TypeScript, `sdk.runAction({ appKey })` requires `"NotionCLIAPI"`. Get it from `list-apps` or `list-actions`. Everywhere else (the CLI's `run-action`, `sdk.findFirstConnection`, `sdk.listActions`, and so on) accepts either the short slug (`"notion"`) or the CLIAPI form.
 - **Multiple connections per app is normal.** Users often have several (personal + work Gmail, multiple Slack workspaces). Default to `findFirstConnection` / `find-first-connection` and take the first result. Don't stop to disambiguate unless the user explicitly asks; filter by `title` or `owner` if you need a specific one.
+- **Vendor 429s reach your code.** On `run-action`, upstream rate limits (Slack, HubSpot, Notion) come back as `ZAPIER_ACTION_ERROR` with a message ending `..., N)` where `N` is Retry-After in seconds. Sleep `N`, then retry. Throttle bursts; don't rely on `--max-network-retries` to catch these.
 
 ## SDK method reference
 
