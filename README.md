@@ -103,6 +103,7 @@ git clone https://github.com/zapier/sdk.git
 - **[docs.zapier.com/sdk](https://docs.zapier.com/sdk)** — SDK guides and tutorials.
 - **[docs.zapier.com/sdk/reference](https://docs.zapier.com/sdk/reference)** — full method reference.
 - **[docs.zapier.com/sdk/cli-reference](https://docs.zapier.com/sdk/cli-reference)** — CLI reference for `zapier-sdk`.
+- **[`skills/zapier-sdk/references/cli-commands.md`](./skills/zapier-sdk/references/cli-commands.md)** — full CLI command inventory in-repo, generated from `zapier-sdk --help`.
 - **[`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk)** — runtime SDK on npm.
 - **[`@zapier/zapier-sdk-cli`](https://www.npmjs.com/package/@zapier/zapier-sdk-cli)** — CLI companion on npm.
 - **[Zapier MCP](https://github.com/zapier/zapier-mcp)** — the MCP-server alternative for tool-calling from Cursor, Claude Desktop, or Codex.
