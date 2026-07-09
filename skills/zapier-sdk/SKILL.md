@@ -64,6 +64,37 @@ The Zapier SDK (`@zapier/zapier-sdk`) is new. Your training data does not contai
 4. Never invent action keys. Run `zapier-sdk list-actions <app>` or `zapier.listActions({ app })` first.
 5. Never assume input field shapes for dynamic actions. Run `zapier-sdk list-action-input-fields <app> <type> <action>` against the live connection.
 
+## Shell discovery (agents working in the terminal)
+
+Prefer the default output for reading. It already includes slug, key, title, action type, and description in a compact form. Pass `--json` only when you need to pipe into `jq` or another tool. `--json` is a per-command flag (it appears on every subcommand's `--help`, not on `zapier-sdk --help`).
+
+```bash
+# Find apps. --search is a substring match, so `notion` returns Motion,
+# Potion, Tree-Nation too. Read the default output to confirm you picked
+# the right app before moving on.
+npx zapier-sdk list-apps --search notion
+
+# List actions on an app. Short slugs like `notion` work everywhere in
+# the CLI. Filter by type to trim the list.
+npx zapier-sdk list-actions notion --action-type search
+
+# Inspect an action's inputs. Many are dynamic, so verify against a
+# live connection.
+npx zapier-sdk list-action-input-fields notion search page_by_title
+
+# Run an action end-to-end. Use --json when you want to parse the result.
+CONN=$(npx zapier-sdk find-first-connection notion --json | jq -r '.data.id')
+
+npx zapier-sdk run-action notion search page_by_title \
+  --connection "$CONN" \
+  --inputs '{"title":"Meeting Notes","exact_match":"no"}' \
+  --json
+```
+
+The CLI's `run-action` accepts the short slug (`notion`, `slack`, `github`), the CLIAPI-suffixed form (`NotionCLIAPI`), or a versioned ID. The CLIAPI-suffix requirement in the "Gotchas" section applies to the typed SDK library method (`sdk.runAction`), not the CLI.
+
+Full CLI walkthrough: [`references/cli.md`](references/cli.md). Complete command inventory: [`references/cli-commands.md`](references/cli-commands.md).
+
 ## Authentication
 
 The SDK supports two auth modes. Browser login is the default for local development:
@@ -143,7 +174,8 @@ const { data: schema } = await zapier.getActionInputFieldsSchema({
 - **Two connection reference shapes.** At runtime, pass `connection.id` (UUID) to `runAction`. Inside a durable workflow (`@zapier/zapier-durable`), pass a string alias like `"notion_primary"` that the runtime resolves at deploy time. Don't mix them up.
 - **`runAction` returns `{ data: T[] }`, always an array.** Search-style actions typically return one row; downstream code destructures `data: [result]`. Write actions also return an array (usually one element).
 - **Dynamic input fields.** Notion database properties, HubSpot custom fields, Jira per-project schemas: none of these are knowable ahead of time. Always run `list-action-input-fields` against the live connection before authoring.
-- **App keys have a canonical form.** `list-actions` returns `app_key: "NotionCLIAPI"` for Notion. Pass that exact string to `runAction`'s `appKey` field. The short slug `"notion"` works for `list-actions` and `findFirstConnection`, but `runAction` wants the CLIAPI-suffixed form.
+- **App keys: the SDK's `runAction` wants the CLIAPI-suffixed form.** In TypeScript, `sdk.runAction({ appKey })` requires `"NotionCLIAPI"`. Get it from `list-apps` or `list-actions`. Everywhere else (the CLI's `run-action`, `sdk.findFirstConnection`, `sdk.listActions`, and so on) accepts either the short slug (`"notion"`) or the CLIAPI form.
+- **Multiple connections per app is normal.** Users often have several (personal + work Gmail, multiple Slack workspaces). Default to `findFirstConnection` / `find-first-connection` and take the first result. Don't stop to disambiguate unless the user explicitly asks; filter by `title` or `owner` if you need a specific one.
 
 ## SDK method reference
 
@@ -168,6 +200,10 @@ const response = await zapier.fetch("https://api.example.com/data", {
 ```
 
 Same auth and audit trail as `runAction`. Use this when the app's Zapier action catalog doesn't cover what you need (bulk reads, custom endpoints, partner-specific APIs).
+
+## Examples
+
+For fill-in-the-blank skeletons (plain script, Zapier Table, durable workflow), see [`references/examples.md`](references/examples.md). These are shape-only; the real, action-key-verified corpus is at https://github.com/zapier/sdk/tree/main/examples. Grep the corpus by app or pattern when you need a working reference.
 
 ## Full documentation
 
