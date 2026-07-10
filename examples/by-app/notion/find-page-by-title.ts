@@ -1,37 +1,29 @@
 /**
- * Find Notion pages by title.
- *
- * JTBD: Look up a page you know the title of. The simplest read-only Notion
- * call in the corpus. No database ID, no property schema — just a title
- * string and a fuzzy/exact flag.
- * App: Notion (search)
- * Run: npx tsx examples/by-app/notion/find-page-by-title.ts "Q2 Planning"
+ * Notion — Zapier SDK example.
+ * Find a Notion page by its exact title.
+ * Discover all actions at runtime — see ./README.md ("Discovery" section).
+ * Generated from live discovery. Do not edit by hand.
+ * Trademarks belong to their respective owners; not affiliated or endorsed. Licensed under MIT; see LICENSE.
  */
-
 import { createZapierSdk } from "@zapier/zapier-sdk";
 
 const zapier = createZapierSdk();
 
-async function main() {
-  const query = process.argv[2] ?? "Q2 Planning";
-
-  const { data: connection } = await zapier.findFirstConnection({
-    app: "notion",
-    owner: "me",
-  });
-
-  const result = await zapier.runAction({
-    appKey: "NotionCLIAPI",
-    actionType: "search",
-    actionKey: "page_by_title",
-    connection: connection.id,
-    inputs: {
-      title: query,
-      exact_match: "no",
-    },
-  });
-
-  console.log(result.data);
+async function connect() {
+  const { data: connection } = await zapier.findFirstConnection({ app: "notion", owner: "me" });
+  return zapier.apps.notion({ connection: connection.id });
 }
 
-main().catch(console.error);
+/**
+ * Find Page (By Title)
+ * Searches for a page by title.
+ */
+export async function findPageByTitle() {
+  const notion = await connect();
+  await notion.search.page_by_title({
+    inputs: {
+      title: "Q2 Planning", // required — If you don’t see your expected page, please check that it is shared with the [same integration](h...
+      exact_match: true, // required — default false — If you want to search for an exact match, enable this option. If you disable this option, the sea...
+    },
+  });
+}
