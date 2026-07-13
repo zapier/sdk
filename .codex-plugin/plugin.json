@@ -36,6 +36,8 @@
       "Send an email through Gmail using the Zapier SDK",
       "Look up a Google Sheets row with the Zapier SDK"
     ],
-    "brandColor": "#FF4A00"
+    "brandColor": "#FF4F00",
+    "logo": "./assets/logo.svg",
+    "composerIcon": "./assets/icon.svg"
   }
 }
