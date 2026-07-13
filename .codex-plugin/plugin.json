@@ -1,0 +1,43 @@
+{
+  "name": "sdk",
+  "version": "0.1.0",
+  "description": "Agent skills and verified examples for writing Zapier SDK code that works.",
+  "author": {
+    "name": "Zapier",
+    "email": "support@zapier.com",
+    "url": "https://zapier.com"
+  },
+  "homepage": "https://docs.zapier.com/sdk",
+  "repository": "https://github.com/zapier/sdk",
+  "license": "MIT",
+  "keywords": [
+    "zapier",
+    "sdk",
+    "agent",
+    "ai-agent",
+    "mcp",
+    "automation",
+    "integration",
+    "typescript"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Zapier SDK",
+    "shortDescription": "Programmatic access to Zapier's 9,000+ apps via the TypeScript SDK.",
+    "longDescription": "Let your agent connect to anything. Zapier handles the keys. Ships the zapier-sdk skill, the zapier-sdk-explorer subagent, and a verified examples corpus so your code uses real action keys the first time.",
+    "developerName": "Zapier",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "websiteURL": "https://docs.zapier.com/sdk",
+    "privacyPolicyURL": "https://zapier.com/privacy",
+    "termsOfServiceURL": "https://zapier.com/tos",
+    "defaultPrompt": [
+      "Connect Notion via Zapier and search my pages",
+      "Send an email through Gmail using the Zapier SDK",
+      "Look up a Google Sheets row with the Zapier SDK"
+    ],
+    "brandColor": "#FF4F00",
+    "logo": "./assets/logo.svg",
+    "composerIcon": "./assets/icon.svg"
+  }
+}
