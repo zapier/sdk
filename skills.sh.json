@@ -1,0 +1,10 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "groupings": [
+    {
+      "title": "Zapier SDK",
+      "description": "Write Zapier SDK code that works the first time — authenticate, discover apps and actions, and run them without inventing method names.",
+      "skills": ["zapier-sdk"]
+    }
+  ]
+}
