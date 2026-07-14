@@ -98,7 +98,14 @@ codex plugin add sdk@zapier
 
 Or open the in-CLI picker with `/plugins` and toggle the SDK plugin on.
 
-### Cursor, Copilot, and other assistants
+### GitHub Copilot CLI
+
+```
+copilot plugin marketplace add zapier/marketplace
+copilot plugin install sdk@zapier
+```
+
+### Cursor and other assistants
 
 The [skill](./skills/zapier-sdk/) conforms to [agentskills.io](https://agentskills.io) so any conformant runtime can load it directly. For tools without native agentskills.io support, clone the repo and reference `skills/zapier-sdk/SKILL.md` from your assistant's rules or instructions file (`.cursorrules`, `AGENTS.md`, `.github/copilot-instructions.md`, etc.):
 
