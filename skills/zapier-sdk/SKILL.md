@@ -29,7 +29,7 @@ Pick the SDK when the deliverable is code. If the user wants ad-hoc tool calls i
 **Two SDK shapes to distinguish:**
 
 - **Plain SDK script** (this file): the user's own code calls the SDK. Runs wherever their code runs (Node script, Next.js route, Lambda, CLI).
-- **Durable workflow** (`@zapier/zapier-durable`): the user *deploys* a workflow that Zapier's infrastructure runs on a trigger (webhook, poll, schedule). Retries stay idempotent via `ctx.step`. Read [`references/workflows.md`](references/workflows.md) when the user wants deployment on Zapier's infrastructure instead of running the code themselves.
+- **Durable workflow** (`@zapier/zapier-durable`): the user *deploys* a workflow that Zapier's infrastructure runs on a trigger (webhook, poll, schedule). Retries stay idempotent via `ctx.step`. Use the `zapier-workflows` skill when the user wants deployment on Zapier's infrastructure instead of running the code themselves.
 
 ## Prerequisites
 
@@ -217,7 +217,7 @@ Same auth and audit trail as `runAction`. Use this when the app's Zapier action 
 
 ## Examples
 
-For fill-in-the-blank skeletons (plain script, Zapier Table, durable workflow), see [`references/examples.md`](references/examples.md). These are shape-only; the real, action-key-verified corpus is at https://github.com/zapier/sdk/tree/main/examples. Grep the corpus by app or pattern when you need a working reference.
+For fill-in-the-blank skeletons (plain script, Zapier Table), see [`references/examples.md`](references/examples.md). These are shape-only; the real, action-key-verified corpus is at https://github.com/zapier/sdk/tree/main/examples. Grep the corpus by app or pattern when you need a working reference. For durable workflows, use the `zapier-workflows` skill instead.
 
 ## Full documentation
 

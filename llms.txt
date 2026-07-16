@@ -16,6 +16,7 @@ For the broader Zapier developer docs index (MCP, embedding, integration builder
 
 - [`skills/zapier-sdk/SKILL.md`](https://github.com/zapier/sdk/blob/main/skills/zapier-sdk/SKILL.md): the installable [agentskills.io](https://agentskills.io) manifest covering authentication, discovery, running actions, and escape hatches.
 - [`skills/zapier-sdk/references/cli-commands.md`](https://github.com/zapier/sdk/blob/main/skills/zapier-sdk/references/cli-commands.md): full inventory of `zapier-sdk` CLI commands, generated from `zapier-sdk --help`.
+- [`skills/zapier-workflows/SKILL.md`](https://github.com/zapier/sdk/blob/main/skills/zapier-workflows/SKILL.md): the installable manifest for building, testing, deploying, listing, and modifying durable Zapier workflows.
 - [`agents/README.md`](https://github.com/zapier/sdk/blob/main/agents/README.md): optional Claude Code subagents that pair with the skill.
 - [`agents/zapier-sdk-explorer.md`](https://github.com/zapier/sdk/blob/main/agents/zapier-sdk-explorer.md): read-only investigator that resolves exact app, action, and field IDs against the live Zapier catalog.
 
