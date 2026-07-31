@@ -50,7 +50,7 @@ export default defineDurable<Input, { itemsFiled: number }>(
         actionType: "search",
         actionKey: "search_meeting",
         connection: FIREFLIES_CONNECTION,
-        inputs: { title: event.summary, date: event.start },
+        inputs: { title: event.summary, start_time: event.start },
       })) as { data: Array<{ url: string; action_items?: ActionItem[] }> };
       return result.data[0];
     });
