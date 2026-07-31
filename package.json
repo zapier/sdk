@@ -29,7 +29,9 @@
     "node": ">=18"
   },
   "scripts": {
-    "generate:cli-reference": "node .github/scripts/generate-cli-reference.mjs"
+    "generate:cli-reference": "node .github/scripts/generate-cli-reference.mjs",
+    "generate:readme-art": "node .github/scripts/readme-art/render.mjs",
+    "generate:readme-art:check": "node .github/scripts/readme-art/render.mjs --check"
   },
   "devDependencies": {
     "@zapier/zapier-sdk-cli": "0.65.5"

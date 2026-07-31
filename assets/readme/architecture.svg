@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" width="1200" height="470" role="img" aria-label="Architecture: your agent, your backend, and the zapier-sdk CLI call @zapier/zapier-sdk; the SDK talks HTTPS to the Zapier platform, which holds the OAuth connections and the live action catalog for notion, gmail, google-sheets, airtable, and 9,000+ more apps, with sdk.fetch as the escape hatch for any HTTP API">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#4E4238"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="1198" height="468" rx="14" fill="#100D0B" stroke="#2B211A"/>
+  <text x="600" y="42" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#8A7A6C" letter-spacing="4" xml:space="preserve">HOW AN ACTION CALL REACHES AN APP</text>
+  <rect x="156" y="74" width="268" height="44" rx="8" fill="#14110B" stroke="#57492E"/>
+  <text x="290" y="101" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#E3B341" xml:space="preserve">your agent</text>
+  <path d="M290 118v34" stroke="#4E4238" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="466" y="74" width="268" height="44" rx="8" fill="#14110B" stroke="#57492E"/>
+  <text x="600" y="101" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#E3B341" xml:space="preserve">your backend</text>
+  <path d="M600 118v34" stroke="#4E4238" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="776" y="74" width="268" height="44" rx="8" fill="#14110B" stroke="#57492E"/>
+  <text x="910" y="101" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#E3B341" xml:space="preserve">npx zapier-sdk (CLI)</text>
+  <path d="M910 118v34" stroke="#4E4238" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="200" y="160" width="800" height="68" rx="8" fill="#171009" stroke="#7A3A14"/>
+  <text x="600" y="187" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13.5" fill="#FF8A50" font-weight="600" xml:space="preserve">@zapier/zapier-sdk — createZapierSdk()</text>
+  <text x="600" y="209" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#9C8F84" xml:space="preserve">runAction · apps.&lt;app&gt;.&lt;type&gt;.&lt;action&gt; · fetch(url, { connection }) · listApps / listActions</text>
+  <path d="M600 228v40" stroke="#4E4238" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="356.5" y="242" width="487" height="17" fill="#100D0B"/>
+  <text x="600" y="254" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#9C8F84" xml:space="preserve">HTTPS — Zapier holds the OAuth grants; your code never sees a token</text>
+  <rect x="200" y="284" width="800" height="60" rx="8" fill="#0D1710" stroke="#2EA043"/>
+  <text x="600" y="310" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13.5" fill="#3FB950" font-weight="600" xml:space="preserve">Zapier platform — connections + live action catalog</text>
+  <text x="600" y="330" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#9C8F84" xml:space="preserve">OAuth connections · audit trail · action schemas resolved at runtime</text>
+  <rect x="247" y="380" width="66" height="34" rx="8" fill="#181310" stroke="#4A3B2E"/>
+  <text x="280" y="402" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#CCC0B4" xml:space="preserve">notion</text>
+  <rect x="325" y="380" width="58" height="34" rx="8" fill="#181310" stroke="#4A3B2E"/>
+  <text x="354" y="402" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#CCC0B4" xml:space="preserve">gmail</text>
+  <rect x="395" y="380" width="116" height="34" rx="8" fill="#181310" stroke="#4A3B2E"/>
+  <text x="453" y="402" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#CCC0B4" xml:space="preserve">google-sheets</text>
+  <rect x="523" y="380" width="80" height="34" rx="8" fill="#181310" stroke="#4A3B2E"/>
+  <text x="563" y="402" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#CCC0B4" xml:space="preserve">airtable</text>
+  <rect x="615" y="380" width="116" height="34" rx="8" fill="#181310" stroke="#4A3B2E"/>
+  <text x="673" y="402" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#CCC0B4" xml:space="preserve">… 9,000+ apps</text>
+  <rect x="757" y="380" width="196" height="34" rx="8" fill="none" stroke="#8A6A1F" stroke-dasharray="5 4"/>
+  <text x="855" y="402" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#E3B341" xml:space="preserve">any HTTP API — sdk.fetch</text>
+  <text x="204.875" y="452" text-anchor="start" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#3FB950" xml:space="preserve">$ npx zapier-sdk create-connection notion</text>
+  <text x="502.125" y="452" text-anchor="start" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#9C8F84" xml:space="preserve">   # OAuth once in a browser — every run after that reuses the grant</text>
+</svg>

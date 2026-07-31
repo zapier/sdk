@@ -41,7 +41,7 @@ npm install -D @zapier/zapier-sdk-cli @types/node typescript
 npx zapier-sdk login
 ```
 
-No build, lint, or test step lives in this repo. `package.json` has no `scripts`. Action-key correctness is the integrity contract for the corpus; CI enforces it via [`.github/scripts/audit.mjs`](./.github/scripts/audit.mjs). Details in [`.github/scripts/README.md`](./.github/scripts/README.md).
+No build, lint, or test step lives in this repo; the only `scripts` in `package.json` regenerate derived artifacts (the CLI reference and the README art under `assets/readme/`). Action-key correctness is the integrity contract for the corpus; CI enforces it via [`.github/scripts/audit.mjs`](./.github/scripts/audit.mjs). Details in [`.github/scripts/README.md`](./.github/scripts/README.md).
 
 ## Repo map
 

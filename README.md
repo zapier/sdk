@@ -1,10 +1,16 @@
-# Zapier SDK
+<div align="center">
+  <img src="assets/readme/banner.svg" width="100%" alt="Zapier SDK — let your agent connect to anything; Zapier handles the keys. A pixel-art key on a keyring of app-colored charms.">
+</div>
 
 Let your agent connect to anything. Zapier handles the keys.
 
 Programmatic access to Zapier's full app ecosystem via [`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk) on npm. Any API call, on behalf of a user.
 
 This repo bundles the SDK's docs, verified examples, and installable agent skills.
+
+![Terminal demo: zapier-sdk discovers Notion's search actions from the live catalog, then run-action calls one through an existing OAuth connection and returns matching pages as JSON](assets/readme/demo.svg)
+
+<sub>Captured CLI output, replayed — not a mockup. The copyable commands are in <a href="#getting-started">Getting started</a> below; the capture provenance lives in <a href=".github/scripts/readme-art/transcript.mjs"><code>transcript.mjs</code></a>.</sub>
 
 ## Getting started
 
@@ -71,6 +77,12 @@ The [`examples/`](./examples) directory is the heart of this repo — indexed th
 - **[`by-app/`](./examples/by-app)** — plain single-action SDK examples, one authenticated call.
 - **[`by-domain/`](./examples/by-domain)** — curation-only READMEs mapping a domain (engineering, real estate, ...) to the examples that matter.
 - **[`by-pattern/`](./examples/by-pattern)** — end-to-end automations by shape (notify-on-event, data-sync, lead-routing, scheduled-report).
+
+## How it fits together
+
+Your code calls one npm package; Zapier holds the OAuth grants and resolves action schemas at runtime, so your code never touches a token.
+
+![Architecture: your agent, your backend, and the zapier-sdk CLI call @zapier/zapier-sdk; the SDK talks HTTPS to the Zapier platform, which holds the OAuth connections and the live action catalog, with sdk.fetch as the escape hatch for any HTTP API](assets/readme/architecture.svg)
 
 ## Install with your favorite AI coding assistant
 

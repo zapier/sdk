@@ -33,6 +33,9 @@ jobs:
       - name: Structural checks
         run: node .github/scripts/validate-corpus.mjs
 
+      - name: README art matches its generators
+        run: node .github/scripts/readme-art/render.mjs --check
+
       - name: Typecheck every workflow
         run: |
           set -euo pipefail
