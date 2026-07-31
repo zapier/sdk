@@ -21,6 +21,7 @@ Each file below is authoritative for a slice of the repo. Read them; don't re-de
 - **[`.github/scripts/README.md`](./.github/scripts/README.md)**: CI checks (structural + live-catalog audit).
 - **[`skills/zapier-sdk/SKILL.md`](./skills/zapier-sdk/SKILL.md)**: installable skill manifest (cross-platform).
 - **[`skills/zapier-sdk/references/cli-commands.md`](./skills/zapier-sdk/references/cli-commands.md)**: full inventory of `zapier-sdk` CLI commands, generated from `zapier-sdk --help`.
+- **[`skills/zapier-workflows/SKILL.md`](./skills/zapier-workflows/SKILL.md)**: installable skill manifest for building, deploying, listing, and modifying durable workflows.
 - **[`agents/README.md`](./agents/README.md)**: optional Claude Code subagents that pair with the skill.
 
 ## When to use this SDK vs. alternatives
@@ -51,7 +52,8 @@ No build, lint, or test step lives in this repo; the only `scripts` in `package.
 ├── AGENTS.md              ← you are here
 ├── CONTRIBUTING.md
 ├── skills/
-│   └── zapier-sdk/        ← SKILL.md manifest for agent runtimes
+│   ├── zapier-sdk/        ← SKILL.md manifest for agent runtimes
+│   └── zapier-workflows/  ← SKILL.md manifest for durable workflows
 └── examples/
     ├── by-app/            ← plain single-action SDK scripts
     ├── by-domain/         ← filesystem symlinks into by-pattern, grouped by audience

@@ -84,61 +84,9 @@ async function main() {
 main().catch(console.error);
 ```
 
-## 3. Durable workflow (notify-on-event shape)
+## 3. Durable workflow (deploy to Zapier's infrastructure)
 
-Deployable to Zapier's infrastructure. Runs on a trigger (webhook, poll, schedule). Every side-effect goes through `ctx.step` with the trigger's primary id in the step name so retries are idempotent.
-
-Matches `examples/by-pattern/notify-on-event/<name>/workflow.ts`.
-
-```typescript
-// workflow.ts
-import { defineDurable } from "@zapier/zapier-durable";
-import { createZapierSdk } from "@zapier/zapier-sdk";
-import { z } from "zod";
-
-const sdk = createZapierSdk();
-
-// Constants get pulled out and documented in the leaf directory's README.
-const DESTINATION_CONNECTION = "<connection-alias>"; // e.g. "gmail_primary"
-const DESTINATION_APP_KEY = "<AppCLIAPI>"; // e.g. "GoogleMailV2CLIAPI"
-
-const InputSchema = z.object({
-  primaryId: z.string(), // whatever id the trigger emits (charge id, response id, ...)
-  // ...other fields the trigger provides
-});
-type Input = z.infer<typeof InputSchema>;
-
-export default defineDurable<Input, { done: boolean }>(
-  "<workflow-name>",
-  async (ctx, rawInput) => {
-    const input = InputSchema.parse(rawInput);
-
-    // Step name MUST include `${input.primaryId}`. Without it, a retry
-    // would double-write. This is the whole reason `defineDurable` exists.
-    await ctx.step(`<action-name>-${input.primaryId}`, async () =>
-      sdk.runAction({
-        appKey: DESTINATION_APP_KEY,
-        actionType: "<write|search|read>",
-        actionKey: "<action-key>",
-        connection: DESTINATION_CONNECTION,
-        inputs: {
-          // ...
-        },
-      }),
-    );
-
-    return { done: true };
-  },
-);
-```
-
-Deploy loop:
-
-```bash
-npm install
-npx tsc --noEmit workflow.ts
-npx zapier-sdk publish-workflow-version --file workflow.ts
-```
+Runs on a trigger (webhook, poll, schedule) instead of in your own process. This is a different skill, not a third skeleton here — see the `zapier-workflows` skill for the full build/test/deploy flow, the idempotency invariant, and the four workflow shapes.
 
 ## What these skeletons deliberately leave out
 

@@ -89,6 +89,7 @@ Your code calls one npm package; Zapier holds the OAuth grants and resolves acti
 Drop every best practice for writing Zapier SDK code straight into your agent's context. Your agent picks up:
 
 - **The `zapier-sdk` skill**: how to authenticate, discover apps and actions at runtime, run actions without inventing method names, and reach for the right escape hatch when there's no first-class action.
+- **The `zapier-workflows` skill**: build, test, deploy, list, and modify durable workflows — code that runs on Zapier's infrastructure on a trigger, instead of in your own process.
 - **The `zapier-sdk-explorer` subagent**: a read-only investigator that resolves exact app / action / field IDs against the live Zapier catalog before your agent writes a line of code.
 - **The verified examples corpus**: every action key checked against `listActions` on the way in, so your agent has canonical, copy-paste-ready patterns to grep.
 
@@ -119,7 +120,7 @@ copilot plugin install sdk@zapier
 
 ### Cursor and other assistants
 
-The [skill](./skills/zapier-sdk/) conforms to [agentskills.io](https://agentskills.io) so any conformant runtime can load it directly. For tools without native agentskills.io support, clone the repo and reference `skills/zapier-sdk/SKILL.md` from your assistant's rules or instructions file (`.cursorrules`, `AGENTS.md`, `.github/copilot-instructions.md`, etc.):
+The [`zapier-sdk`](./skills/zapier-sdk/) and [`zapier-workflows`](./skills/zapier-workflows/) skills conform to [agentskills.io](https://agentskills.io) so any conformant runtime can load them directly. For tools without native agentskills.io support, clone the repo and reference the relevant `SKILL.md` from your assistant's rules or instructions file (`.cursorrules`, `AGENTS.md`, `.github/copilot-instructions.md`, etc.):
 
 ```
 git clone https://github.com/zapier/sdk.git
@@ -132,6 +133,7 @@ git clone https://github.com/zapier/sdk.git
 - **[docs.zapier.com/sdk/reference](https://docs.zapier.com/sdk/reference)** — full method reference.
 - **[docs.zapier.com/sdk/cli-reference](https://docs.zapier.com/sdk/cli-reference)** — CLI reference for `zapier-sdk`.
 - **[`skills/zapier-sdk/references/cli-commands.md`](./skills/zapier-sdk/references/cli-commands.md)** — full CLI command inventory in-repo, generated from `zapier-sdk --help`.
+- **[`skills/zapier-workflows/`](./skills/zapier-workflows/)** — the durable workflows skill: build, test, deploy, list, and modify code that runs on Zapier's infrastructure.
 - **[`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk)** — runtime SDK on npm.
 - **[`@zapier/zapier-sdk-cli`](https://www.npmjs.com/package/@zapier/zapier-sdk-cli)** — CLI companion on npm.
 - **[Zapier MCP](https://github.com/zapier/zapier-mcp)** — the MCP-server alternative for tool-calling from Cursor, Claude Desktop, or Codex.

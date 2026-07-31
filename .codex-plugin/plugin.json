@@ -24,7 +24,7 @@
   "interface": {
     "displayName": "Zapier SDK",
     "shortDescription": "Programmatic access to Zapier's 9,000+ apps via the TypeScript SDK.",
-    "longDescription": "Let your agent connect to anything. Zapier handles the keys. Ships the zapier-sdk skill, the zapier-sdk-explorer subagent, and a verified examples corpus so your code uses real action keys the first time.",
+    "longDescription": "Let your agent connect to anything. Zapier handles the keys. Ships the zapier-sdk skill, the zapier-workflows skill for deploying durable automations, the zapier-sdk-explorer subagent, and a verified examples corpus so your code uses real action keys the first time.",
     "developerName": "Zapier",
     "category": "Developer Tools",
     "capabilities": [],
@@ -34,7 +34,8 @@
     "defaultPrompt": [
       "Connect Notion via Zapier and search my pages",
       "Send an email through Gmail using the Zapier SDK",
-      "Look up a Google Sheets row with the Zapier SDK"
+      "Look up a Google Sheets row with the Zapier SDK",
+      "Build a Zapier workflow that posts new GitHub issues to Slack"
     ],
     "brandColor": "#FF4F00",
     "logo": "./assets/logo.svg",

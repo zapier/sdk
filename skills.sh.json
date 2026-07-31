@@ -5,6 +5,11 @@
       "title": "Zapier SDK",
       "description": "Write Zapier SDK code that works the first time — authenticate, discover apps and actions, and run them without inventing method names.",
       "skills": ["zapier-sdk"]
+    },
+    {
+      "title": "Zapier Workflows",
+      "description": "Build, test, deploy, list, and modify durable Zapier workflows — code that runs on Zapier's infrastructure on a trigger.",
+      "skills": ["zapier-workflows"]
     }
   ]
 }
