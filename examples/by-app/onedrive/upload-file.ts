@@ -22,7 +22,7 @@ export async function uploadFile() {
   const onedrive = await connect();
   await onedrive.write.file({
     inputs: {
-      file: "/Users/alex/Documents/marketing-plan.pdf", // required — Select the file to upload.
+      file: "https://example.com/files/marketing-plan.pdf", // required — Select the file to upload.
       name: "Q2 Marketing Plan.pdf", // optional — Optional: Rename the file when uploading. Leave blank to keep the original filename.
     },
   });

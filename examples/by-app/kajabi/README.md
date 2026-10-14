@@ -44,7 +44,7 @@ npx zapier-sdk list-action-input-field-choices kajabi <action-type> <action-key>
 ```bash
 # Grant access to an offer for a user.
 npx zapier-sdk run-action kajabi write activate_offer --connection <connection-id> \
-  --inputs '{"name":"Email Marketing Bootcamp","email":"jane.doe@gmail.com","external_user_id":"user_12345","send_offer_grant_email":true}'
+  --inputs '{"name":"Email Marketing Bootcamp","email":"jane.doe@example.com","external_user_id":"user_12345","send_offer_grant_email":true}'
 
 # Revoke access to an offer for a user.
 npx zapier-sdk run-action kajabi write deactivate_offer --connection <connection-id> \

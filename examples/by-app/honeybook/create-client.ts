@@ -23,7 +23,7 @@ export async function createClient() {
   await honeybook.write.new_contact({
     inputs: {
       full_name: "Michael Johnson", // required
-      email: "michael.johnson@email.com", // required
+      email: "michael.johnson@example.com", // required
       address: "456 Oak Street, Springfield", // optional
       phone_number: "555-5678", // optional
     },

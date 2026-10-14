@@ -48,7 +48,7 @@ npx zapier-sdk run-action clickup write task --connection <connection-id> \
 
 # Find a user by name or email.
 npx zapier-sdk run-action clickup search findUser --connection <connection-id> \
-  --inputs '{"field":"email","value":"alice.jones@acme.com","include_shared":true}'
+  --inputs '{"field":"email","value":"alice.jones@example.com","include_shared":true}'
 ```
 
 ## SDK examples

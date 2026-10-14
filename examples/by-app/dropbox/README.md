@@ -44,7 +44,7 @@ npx zapier-sdk list-action-input-field-choices dropbox <action-type> <action-key
 ```bash
 # Upload a file to Dropbox.
 npx zapier-sdk run-action dropbox write file --connection <connection-id> \
-  --inputs '{"directory":"/","file":"/Users/alex/Documents/ProjectProposal.pdf","overwrite":false,"new_name":"ProjectProposal_Final.pdf","new_extension":"pdf","include_sharing_link":true}'
+  --inputs '{"directory":"/","file":"https://example.com/files/ProjectProposal.pdf","overwrite":false,"new_name":"ProjectProposal_Final.pdf","new_extension":"pdf","include_sharing_link":true}'
 
 # Search for files and folders using keywords.
 npx zapier-sdk run-action dropbox search advanced_search --connection <connection-id> \

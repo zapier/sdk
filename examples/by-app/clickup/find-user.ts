@@ -23,7 +23,7 @@ export async function findUser() {
   await clickup.search.findUser({
     inputs: {
       field: "email", // required — choices: username, email
-      value: "alice.jones@acme.com", // required
+      value: "alice.jones@example.com", // required
       include_shared: true, // optional — default true — If true, it will provide the IDs of all Folders, Lists, and Tasks that the user has access to.
     },
   });

@@ -44,11 +44,11 @@ npx zapier-sdk list-action-input-field-choices skool <action-type> <action-key> 
 ```bash
 # Invite a new member to a Skool group.
 npx zapier-sdk run-action skool write invite_member --connection <connection-id> \
-  --inputs '{"email":"jane.doe@gmail.com"}'
+  --inputs '{"email":"jane.doe@example.com"}'
 
 # Unlock a course for a specific member.
 npx zapier-sdk run-action skool write unlock_course_for_member --connection <connection-id> \
-  --inputs '{"email":"jane.doe@gmail.com"}'
+  --inputs '{"email":"jane.doe@example.com"}'
 ```
 
 ## SDK examples

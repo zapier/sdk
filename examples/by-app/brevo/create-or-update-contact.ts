@@ -27,7 +27,7 @@ export async function createOrUpdateContact() {
       smsBlacklisted: false, // optional — default false — Enable this if you have not received the contact's explicit consent to send SMS campaigns
       listsUpdateType: "add", // optional — default "add" — choices: add, reassign — The new contact will be added to the list(s) selected above. In case _Add_ an existing Brevo cont...
       attribcategoryIsID: false, // optional — default false — You should enable this option if you plan to provide category-type attribute values as category I...
-      contact_key_identification: {"email":"susan.chan@acmecorp.com"}, // required
+      contact_key_identification: {"email":"susan.chan@example.com"}, // required
     },
   });
 }

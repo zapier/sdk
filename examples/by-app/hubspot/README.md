@@ -48,7 +48,7 @@ npx zapier-sdk run-action hubspot write add_contact_to_subscription --connection
 
 # Retrieve owner details using their email address.
 npx zapier-sdk run-action hubspot search find_owner_by_email --connection <connection-id> \
-  --inputs '{"owner_email":"jane.doe@acme.com","search_archived":false}'
+  --inputs '{"owner_email":"jane.doe@example.com","search_archived":false}'
 ```
 
 ## SDK examples

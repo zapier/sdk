@@ -23,7 +23,7 @@ export async function addAttachment() {
   await zohoCrm.write.add_attachment({
     inputs: {
       file_name: "Signed_Contract_2024.pdf", // optional
-      attachment_file: "/Users/alex/Documents/contract.pdf", // required
+      attachment_file: "https://example.com/files/contract.pdf", // required
     },
   });
 }

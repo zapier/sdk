@@ -22,7 +22,7 @@ export async function findEmail() {
   const microsoftOutlook = await connect();
   await microsoftOutlook.search.find_email({
     inputs: {
-      searchValue: "from:ceo@company.com subject:Strategy Meeting", // required — The value to search for.
+      searchValue: "from:ceo@example.com subject:Strategy Meeting", // required — The value to search for.
     },
   });
 }

@@ -27,7 +27,7 @@ export async function createProject() {
       projectLocation__city: "San Francisco", // optional — The address for the created project's location.
       projectLocation__state: "CA", // optional — The address for the created project's location.
       title: "Brand Refresh for Acme Corp", // required — The title of the created project.
-      client__email: "jane.doe@acmecorp.com", // required — The client's email address.
+      client__email: "jane.doe@example.com", // required — The client's email address.
     },
   });
 }

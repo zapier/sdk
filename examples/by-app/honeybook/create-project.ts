@@ -23,7 +23,7 @@ export async function createProject() {
   await honeybook.write.create_project({
     inputs: {
       full_name: "Jessica Smith", // required
-      email: "jessica.smith@email.com", // required
+      email: "jessica.smith@example.com", // required
       phone_number: "555-1234", // optional
       event_type: "Wedding", // optional
       event_date: "2024-09-14", // optional

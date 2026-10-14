@@ -28,7 +28,7 @@ export async function createProjectWithLocation() {
       projectLocation__city: "Los Angeles", // optional — The address for the created project's location.
       projectLocation__state: "CA", // optional — The address for the created project's location.
       title: "Website Redesign", // required — The title of the created project.
-      client__email: "john.smith@webco.com", // required — The client's email address.
+      client__email: "john.smith@example.com", // required — The client's email address.
     },
   });
 }

@@ -23,7 +23,7 @@ export async function sendEmail() {
   await gmail.write.message({
     inputs: {
       from_name: "Jane Smith", // optional — Customize the sender's name.
-      reply_to: "jane.smith@company.com", // optional — Specify a single reply address other than your own.
+      reply_to: "jane.smith@example.com", // optional — Specify a single reply address other than your own.
       subject: "Quarterly Update", // required
       body_type: "plain", // optional — default "plain" — choices: plain, html — Choose to format the body with [HTML](https://www.w3schools.com/html/) or use plain text.
       body: "Hello team,\n\nPlease find attached the quarterly update.\n\nBest regards,\nJane", // required

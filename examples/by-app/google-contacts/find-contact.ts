@@ -22,7 +22,7 @@ export async function findContact() {
   const googleContacts = await connect();
   await googleContacts.search.contact({
     inputs: {
-      search_by: "jessica.tanaka@email.com", // required — choices: email, name, phone
+      search_by: "jessica.tanaka@example.com", // required — choices: email, name, phone
     },
   });
 }

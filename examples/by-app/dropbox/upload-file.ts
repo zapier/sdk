@@ -23,7 +23,7 @@ export async function uploadFile() {
   await dropbox.write.file({
     inputs: {
       directory: "/", // required, dynamic — default "/" — Where to save the file.
-      file: "/Users/alex/Documents/ProjectProposal.pdf", // required — Must be a file object from another service (or some URL).
+      file: "https://example.com/files/ProjectProposal.pdf", // required — Must be a file object from another service (or some URL).
       overwrite: false, // optional — Whether we should overwrite this file (if one of the same name exists) or not.
       new_name: "ProjectProposal_Final.pdf", // optional — Advanced: By default, we use the same name as the file from the trigger. If you need to change th...
       new_extension: "pdf", // optional — Advanced: If you specify a file name, you can also specify an extension (include the initial ".").

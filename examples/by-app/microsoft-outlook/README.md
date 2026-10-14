@@ -48,7 +48,7 @@ npx zapier-sdk run-action microsoft-outlook write send_email --connection <conne
 
 # Find emails matching a specific search query.
 npx zapier-sdk run-action microsoft-outlook search find_email --connection <connection-id> \
-  --inputs '{"searchValue":"from:ceo@company.com subject:Strategy Meeting"}'
+  --inputs '{"searchValue":"from:ceo@example.com subject:Strategy Meeting"}'
 ```
 
 ## SDK examples

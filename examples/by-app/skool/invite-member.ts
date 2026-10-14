@@ -22,7 +22,7 @@ export async function inviteMember() {
   const skool = await connect();
   await skool.write.invite_member({
     inputs: {
-      email: "jane.doe@gmail.com", // required — Enter an email address of the person you would like to invite.
+      email: "jane.doe@example.com", // required — Enter an email address of the person you would like to invite.
     },
   });
 }

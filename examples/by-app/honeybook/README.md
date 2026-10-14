@@ -44,11 +44,11 @@ npx zapier-sdk list-action-input-field-choices honeybook <action-type> <action-k
 ```bash
 # Create a new project with client details and event information.
 npx zapier-sdk run-action honeybook write create_project --connection <connection-id> \
-  --inputs '{"full_name":"Jessica Smith","email":"jessica.smith@email.com","phone_number":"555-1234","event_type":"Wedding","event_date":"2024-09-14","event_details":"Outdoor ceremony at Central Park","event_location":"Central Park, NYC"}'
+  --inputs '{"full_name":"Jessica Smith","email":"jessica.smith@example.com","phone_number":"555-1234","event_type":"Wedding","event_date":"2024-09-14","event_details":"Outdoor ceremony at Central Park","event_location":"Central Park, NYC"}'
 
 # Add a new client with contact information.
 npx zapier-sdk run-action honeybook write new_contact --connection <connection-id> \
-  --inputs '{"full_name":"Michael Johnson","email":"michael.johnson@email.com","address":"456 Oak Street, Springfield","phone_number":"555-5678"}'
+  --inputs '{"full_name":"Michael Johnson","email":"michael.johnson@example.com","address":"456 Oak Street, Springfield","phone_number":"555-5678"}'
 ```
 
 ## SDK examples

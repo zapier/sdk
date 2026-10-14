@@ -44,11 +44,11 @@ npx zapier-sdk list-action-input-field-choices zoho-crm <action-type> <action-ke
 ```bash
 # Add an attachment file to a record in Zoho CRM.
 npx zapier-sdk run-action zoho-crm write add_attachment --connection <connection-id> \
-  --inputs '{"file_name":"Signed_Contract_2024.pdf","attachment_file":"/Users/alex/Documents/contract.pdf"}'
+  --inputs '{"file_name":"Signed_Contract_2024.pdf","attachment_file":"https://example.com/files/contract.pdf"}'
 
 # Find a module entry by a specific value in Zoho CRM.
 npx zapier-sdk run-action zoho-crm search search_module_entry --connection <connection-id> \
-  --inputs '{"value":"john.doe@email.com","value_2":"Leads"}'
+  --inputs '{"value":"john.doe@example.com","value_2":"Leads"}'
 ```
 
 ## SDK examples

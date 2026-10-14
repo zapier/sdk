@@ -44,11 +44,11 @@ npx zapier-sdk list-action-input-field-choices dubsado <action-type> <action-key
 ```bash
 # Create a new project for a client.
 npx zapier-sdk run-action dubsado write create_project --connection <connection-id> \
-  --inputs '{"projectLocation__name":"Acme Corp HQ","projectLocation__line1":"123 Main St","projectLocation__city":"San Francisco","projectLocation__state":"CA","title":"Brand Refresh for Acme Corp","client__email":"jane.doe@acmecorp.com"}'
+  --inputs '{"projectLocation__name":"Acme Corp HQ","projectLocation__line1":"123 Main St","projectLocation__city":"San Francisco","projectLocation__state":"CA","title":"Brand Refresh for Acme Corp","client__email":"jane.doe@example.com"}'
 
 # Create a new project for a client at a specific location.
 npx zapier-sdk run-action dubsado write create_project --connection <connection-id> \
-  --inputs '{"projectLocation__name":"WebCo Main Office","projectLocation__line1":"456 Oak Ave","projectLocation__line2":"Suite 200","projectLocation__city":"Los Angeles","projectLocation__state":"CA","title":"Website Redesign","client__email":"john.smith@webco.com"}'
+  --inputs '{"projectLocation__name":"WebCo Main Office","projectLocation__line1":"456 Oak Ave","projectLocation__line2":"Suite 200","projectLocation__city":"Los Angeles","projectLocation__state":"CA","title":"Website Redesign","client__email":"john.smith@example.com"}'
 ```
 
 ## SDK examples

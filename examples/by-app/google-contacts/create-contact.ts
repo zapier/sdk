@@ -24,7 +24,7 @@ export async function createContact() {
     inputs: {
       first_name: "Jessica", // optional
       last_name: "Tanaka", // optional
-      email: "jessica.tanaka@email.com", // optional — If updating an email, ensure the existing email has a type and the new email has the same type. O...
+      email: "jessica.tanaka@example.com", // optional — If updating an email, ensure the existing email has a type and the new email has the same type. O...
       email_type: "home", // optional — choices: home, work — Select a predefined option or enter any custom value.
       phone_type: "mobile", // optional — choices: mobile, work, home, main, workFax, homeFax, +2 more — Select a predefined option or enter any custom value.
       address_type: "home", // optional — choices: home, work — Select a predefined option or enter any custom value.

@@ -44,11 +44,11 @@ npx zapier-sdk list-action-input-field-choices google-contacts <action-type> <ac
 ```bash
 # Create a new contact in Google Contacts.
 npx zapier-sdk run-action google-contacts write contact --connection <connection-id> \
-  --inputs '{"first_name":"Jessica","last_name":"Tanaka","email":"jessica.tanaka@email.com","email_type":"home","phone_type":"mobile","address_type":"home","event_type":"anniversary","url_type":"home","relationship_type":"spouse"}'
+  --inputs '{"first_name":"Jessica","last_name":"Tanaka","email":"jessica.tanaka@example.com","email_type":"home","phone_type":"mobile","address_type":"home","event_type":"anniversary","url_type":"home","relationship_type":"spouse"}'
 
 # Find a contact by name, email, or phone number.
 npx zapier-sdk run-action google-contacts search contact --connection <connection-id> \
-  --inputs '{"search_by":"jessica.tanaka@email.com"}'
+  --inputs '{"search_by":"jessica.tanaka@example.com"}'
 ```
 
 ## SDK examples

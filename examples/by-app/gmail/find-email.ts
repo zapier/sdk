@@ -22,7 +22,7 @@ export async function findEmail() {
   const gmail = await connect();
   await gmail.search.message({
     inputs: {
-      query: "from:ceo@company.com is:unread", // required — Use words or symbols as [search operators](https://support.google.com/mail/answer/7190?hl=en) to ...
+      query: "from:ceo@example.com is:unread", // required — Use words or symbols as [search operators](https://support.google.com/mail/answer/7190?hl=en) to ...
     },
   });
 }

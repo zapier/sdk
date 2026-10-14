@@ -44,7 +44,7 @@ npx zapier-sdk list-action-input-field-choices brevo <action-type> <action-key> 
 ```bash
 # Create or update a contact in your Brevo account.
 npx zapier-sdk run-action brevo write contactAddorupdate --connection <connection-id> \
-  --inputs '{"updateOnExisting":true,"emailBlacklisted":false,"smsBlacklisted":false,"listsUpdateType":"add","attribcategoryIsID":false,"contact_key_identification":{"email":"susan.chan@acmecorp.com"}}'
+  --inputs '{"updateOnExisting":true,"emailBlacklisted":false,"smsBlacklisted":false,"listsUpdateType":"add","attribcategoryIsID":false,"contact_key_identification":{"email":"susan.chan@example.com"}}'
 
 # Detect when a transactional email has been opened.
 npx zapier-sdk run-action brevo read emailTsOpened --connection <connection-id> \

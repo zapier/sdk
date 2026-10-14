@@ -22,7 +22,7 @@ export async function getOwnerByEmail() {
   const hubspot = await connect();
   await hubspot.search.find_owner_by_email({
     inputs: {
-      owner_email: "jane.doe@acme.com", // required
+      owner_email: "jane.doe@example.com", // required
       search_archived: false, // optional — Should the owner also be searched among archived (deactivated) owners?
     },
   });

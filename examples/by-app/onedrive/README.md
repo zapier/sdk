@@ -44,7 +44,7 @@ npx zapier-sdk list-action-input-field-choices onedrive <action-type> <action-ke
 ```bash
 # Upload a file to OneDrive.
 npx zapier-sdk run-action onedrive write file --connection <connection-id> \
-  --inputs '{"file":"/Users/alex/Documents/marketing-plan.pdf","name":"Q2 Marketing Plan.pdf"}'
+  --inputs '{"file":"https://example.com/files/marketing-plan.pdf","name":"Q2 Marketing Plan.pdf"}'
 
 # Find a file in OneDrive by searching for its name or content.
 npx zapier-sdk run-action onedrive search file --connection <connection-id> \

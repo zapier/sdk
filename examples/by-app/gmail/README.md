@@ -44,11 +44,11 @@ npx zapier-sdk list-action-input-field-choices gmail <action-type> <action-key> 
 ```bash
 # Send an email to one or more recipients.
 npx zapier-sdk run-action gmail write message --connection <connection-id> \
-  --inputs '{"from_name":"Jane Smith","reply_to":"jane.smith@company.com","subject":"Quarterly Update","body_type":"plain","body":"Hello team,\n\nPlease find attached the quarterly update.\n\nBest regards,\nJane","signature_delimiter":true,"send_to_groups":false}'
+  --inputs '{"from_name":"Jane Smith","reply_to":"jane.smith@example.com","subject":"Quarterly Update","body_type":"plain","body":"Hello team,\n\nPlease find attached the quarterly update.\n\nBest regards,\nJane","signature_delimiter":true,"send_to_groups":false}'
 
 # Find an email matching a specific search query.
 npx zapier-sdk run-action gmail search message --connection <connection-id> \
-  --inputs '{"query":"from:ceo@company.com is:unread"}'
+  --inputs '{"query":"from:ceo@example.com is:unread"}'
 ```
 
 ## SDK examples

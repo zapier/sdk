@@ -23,7 +23,7 @@ export async function grantAccessToOffer() {
   await kajabi.write.activate_offer({
     inputs: {
       name: "Email Marketing Bootcamp", // required
-      email: "jane.doe@gmail.com", // required
+      email: "jane.doe@example.com", // required
       external_user_id: "user_12345", // required — An ID to uniquely identify the user. This is used to grant or revoke access later.
       send_offer_grant_email: true, // optional — default true — Send member an Offer Grant Confirmation email?
     },
