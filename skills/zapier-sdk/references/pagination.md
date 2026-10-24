@@ -35,3 +35,45 @@ for await (const app of zapier.listApps({ search: "notion" }).items({ maxItems: 
   console.log(app.key);
 }
 ```
+
+## Filtering table records
+
+`listTableRecords` accepts a `filters` array. Each filter has `fieldKey`, `operator`, and `value`. Exact-equals is the common operator:
+
+```typescript
+const { data, nextCursor } = await zapier.listTableRecords({
+  table: "<table-id>",
+  keyMode: "names",
+  filters: [{ fieldKey: "region", operator: "exact", value: "emea" }],
+  pageSize: 100,
+});
+```
+
+To page through filtered results, pass the returned `nextCursor` back as `cursor`:
+
+```typescript
+let cursor: string | undefined;
+do {
+  const page = await zapier.listTableRecords({
+    table: "<table-id>",
+    filters: [{ fieldKey: "region", operator: "exact", value: "emea" }],
+    cursor,
+    pageSize: 100,
+  });
+  for (const row of page.data) {
+    console.log(row.id, row.data);
+  }
+  cursor = page.nextCursor;
+} while (cursor);
+```
+
+The same filter works with the page iterator when you omit the explicit cursor loop:
+
+```typescript
+for await (const page of zapier.listTableRecords({
+  table: "<table-id>",
+  filters: [{ fieldKey: "region", operator: "exact", value: "emea" }],
+})) {
+  // page.data: T[], page.nextCursor?: string
+}
+```
