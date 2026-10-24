@@ -43,7 +43,7 @@ main().catch(console.error);
 
 ## 2. Zapier Tables
 
-Tables uses first-class SDK methods (`createTable`, `createTableFields`, `createTableRecords`, `listTables`, `listTableRecords`). No connection lookup, no action discovery. The method names in the SDK reference are the surface.
+Tables uses first-class SDK methods (`createTable`, `createTableFields`, `createTableRecords`, `getTable`, `listTables`, `listTableFields`, `listTableRecords`). No connection lookup, no action discovery. The method names in the SDK reference are the surface.
 
 Matches `examples/by-app/zapier-tables/log-event.ts`.
 
@@ -53,25 +53,41 @@ import { createZapierSdk } from "@zapier/zapier-sdk";
 const zapier = createZapierSdk();
 
 async function main() {
-  // Find-or-create the table by name.
+  // listTables returns { data: Table[], nextCursor?: string }.
   const { data: tables } = await zapier.listTables({ search: "<table-name>" });
   let table = tables[0];
 
   if (!table) {
+    // createTable returns { data: { id, name, description, ... } }.
     const created = await zapier.createTable({
       name: "<table-name>",
       description: "<what this table is for>",
     });
+    table = created.data;
+
+    // createTableFields returns the created field definitions.
+    // Supported field types: string, number, boolean (checkbox-style), datetime, json.
     await zapier.createTableFields({
-      table: created.data.id,
+      table: table.id,
       fields: [
-        { name: "<field-name>", type: "string" }, // or number | boolean | datetime | json
+        { name: "<field-name>", type: "string" },
+        { name: "<field-name>", type: "boolean" },
+        { name: "<field-name>", type: "datetime" },
       ],
     });
-    table = created.data;
   }
 
-  // Write records. keyMode: "names" addresses fields by declared name.
+  // getTable returns { data: { id, name, description, ... } } for one table.
+  const { data: fetchedTable } = await zapier.getTable({ table: table.id });
+
+  // listTableFields returns { data: Field[] }. Each field has an id (e.g. "f1")
+  // and a type. Use the id with keyMode: "ids"; use the name with "names".
+  const { data: fields } = await zapier.listTableFields({ table: table.id });
+  console.log(fields.map((f) => ({ id: f.id, name: f.name, type: f.type })));
+
+  // createTableRecords returns the created records.
+  // keyMode "names" (default) uses human-readable field names.
+  // keyMode "ids" uses raw field IDs like "f1", "f2".
   await zapier.createTableRecords({
     table: table.id,
     keyMode: "names",
@@ -83,6 +99,22 @@ async function main() {
 
 main().catch(console.error);
 ```
+
+### Method signatures and return values
+
+- `listTables({ search?, pageSize?, maxItems?, cursor? })` -> `{ data: Table[], nextCursor?: string }`
+- `createTable({ name, description? })` -> `{ data: Table }`
+- `getTable({ table: string })` -> `{ data: Table }`
+- `createTableFields({ table: string, fields: FieldInput[] })` -> `{ data: Field[] }`
+- `listTableFields({ table: string })` -> `{ data: Field[] }`
+- `createTableRecords({ table: string, keyMode?: "names" | "ids", records: { data: Record<string, unknown> }[] })` -> `{ data: TableRecord[] }`
+- `listTableRecords({ table: string, filters?, sort?, pageSize?, maxItems?, cursor?, keyMode? })` -> `{ data: TableRecord[], nextCursor?: string }`
+
+### Field types and keyMode
+
+Fields support `string`, `number`, `boolean` (checkbox-style), `datetime`, and `json`. Field IDs are short strings like `f1`, `f2`. With `keyMode: "names"` (the default), record `data` keys are field names. With `keyMode: "ids"`, record `data` keys are raw field IDs. Use `listTableFields` or `getTable` to read the field IDs and types for an existing table.
+
+For filtering and pagination of table records, see [`pagination.md`](pagination.md).
 
 ## 3. Durable workflow (notify-on-event shape)
 
