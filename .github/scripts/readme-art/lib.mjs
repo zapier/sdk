@@ -121,8 +121,7 @@ export function fmt(n) {
 
 /**
  * Write the artifact, or in --check mode compare against what is committed —
- * a hand-edited artifact or a stale regeneration fails CI the same way a
- * stale skills/zapier-sdk/references/cli-commands.md would be caught.
+ * a hand-edited artifact or a stale regeneration fails CI.
  */
 export function writeOrCheck(path, content, check) {
   if (!check) {
