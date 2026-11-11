@@ -2,8 +2,8 @@
  * The demo transcript — REAL output, not typeset. Every output line below was
  * captured from the live Zapier catalog and a live GitHub connection.
  *
- * Captured 2026-07-31 on main @ 20104c0 with @zapier/zapier-sdk-cli 0.65.5
- * (the version pinned in package.json), authenticated via `zapier-sdk login`:
+ * Captured 2026-07-31 on main @ 20104c0 with @zapier/zapier-sdk-cli 0.65.5,
+ * authenticated via `zapier-sdk login`:
  *
  *   npx zapier-sdk list-actions github --action-type search --json \
  *     | jq -r '.data[].key'

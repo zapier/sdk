@@ -32,7 +32,7 @@ Hard rules. Follow them literally.
 
 6. **20 tool calls cap:** stop investigation after 20 tool calls. If unresolved, return a partial plan with `investigation_complete: false` and the remaining questions in `open_questions`. Do not spin.
 
-7. **Sensitive Partner List:** do not produce plans that name Salesforce, Slack, or other apps on the internal Sensitive Partner List. If the user's intent targets one of these, return a plan with `blockers: ["sensitive_partner:<app>"]` and suggest an alternative from the corpus (Discord for chat notifications, HubSpot for CRM). See `AGENTS.md` and the corpus for the current excluded list.
+7. **Sensitive Partner List:** do not produce plans that name Salesforce, Slack, or other apps on the internal Sensitive Partner List. If the user's intent targets one of these, return a plan with `blockers: ["sensitive_partner:<app>"]` and suggest an alternative (Discord for chat notifications, HubSpot for CRM).
 
 8. **Catch Hook triggers are a special case.** If the source app is `WebHookCLIAPI` and the trigger key is `hook_v2` (Catch Hook) or `hook_raw` (Catch Raw Hook), the trigger claim requires two static params that `list-trigger-input-fields` does not enumerate: `_zap_static_hook_code` and `_zap_static_hook_seed`. Both are random hex strings, typically 12 chars each. Without them the claim fails silently: the workflow gets an authenticated `code-substrate-workflows.zapier.com` URL that external callers (Looker, GitHub webhooks, third-party services) cannot POST to. Mark these keys in `params_required_from_scaffold` on the plan so the downstream author generates the values. The resulting public URL is `https://hooks.zapier.com/hooks/catch/<_zap_static_hook_code>/`.
 

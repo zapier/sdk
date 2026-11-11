@@ -2,7 +2,7 @@
   "name": "@zapier/zapier-sdk",
   "version": "0.1.0",
   "private": true,
-  "description": "Docs and examples corpus for the Zapier SDK on npm. Connect to 9,000+ apps from your agent or backend.",
+  "description": "Docs and agent skill for the Zapier SDK on npm. Connect to 9,000+ apps from your agent or backend.",
   "keywords": [
     "zapier",
     "agent",
@@ -29,11 +29,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "generate:cli-reference": "node .github/scripts/generate-cli-reference.mjs",
     "generate:readme-art": "node .github/scripts/readme-art/render.mjs",
     "generate:readme-art:check": "node .github/scripts/readme-art/render.mjs --check"
-  },
-  "devDependencies": {
-    "@zapier/zapier-sdk-cli": "0.65.5"
   }
 }

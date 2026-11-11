@@ -1,7 +1,7 @@
 {
   "name": "sdk",
   "version": "0.1.0",
-  "description": "Agent skills and verified examples for writing Zapier SDK code that works.",
+  "description": "Agent skills for writing Zapier SDK code that works.",
   "author": {
     "name": "Zapier",
     "email": "support@zapier.com",
@@ -24,7 +24,7 @@
   "interface": {
     "displayName": "Zapier SDK",
     "shortDescription": "Programmatic access to Zapier's 9,000+ apps via the TypeScript SDK.",
-    "longDescription": "Let your agent connect to anything. Zapier handles the keys. Ships the zapier-sdk skill, the zapier-sdk-explorer subagent, and a verified examples corpus so your code uses real action keys the first time.",
+    "longDescription": "Let your agent connect to anything. Zapier handles the keys. Ships the zapier-sdk skill and the zapier-sdk-explorer subagent so your code uses real action keys the first time.",
     "developerName": "Zapier",
     "category": "Developer Tools",
     "capabilities": [],

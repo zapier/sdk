@@ -9,8 +9,3 @@
 ## How to verify
 
 <!-- Steps a reviewer can take to confirm the change works. -->
-
-## Checklist
-
-- [ ] If touching examples: action keys verified with `npx zapier-sdk list-actions <app>`
-- [ ] If touching examples: dynamic inputs marked with `// dynamic` comment

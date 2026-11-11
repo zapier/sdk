@@ -6,7 +6,7 @@ Let your agent connect to anything. Zapier handles the keys.
 
 Programmatic access to Zapier's full app ecosystem via [`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk) on npm. Any API call, on behalf of a user.
 
-This repo bundles the SDK's docs, verified examples, and installable agent skills.
+This repo bundles the SDK's docs and installable agent skills.
 
 ![Terminal demo: zapier-sdk discovers Notion's search actions from the live catalog, then run-action calls one through an existing OAuth connection and returns matching pages as JSON](assets/readme/demo.svg)
 
@@ -68,15 +68,7 @@ npx zapier-sdk run-action airtable search findRecord \
   --inputs '{"applicationId":"<base-id>","tableName":"Leads","searchByField":"Email","searchByValue":"jane@example.com"}'
 ```
 
-See more actions in [`examples/by-app/`](./examples/by-app). Full API reference at [docs.zapier.com/sdk/reference](https://docs.zapier.com/sdk/reference). Want to see more examples in this repo? [Open a PR](./CONTRIBUTING.md) — contributions welcome.
-
-## Examples
-
-The [`examples/`](./examples) directory is the heart of this repo — indexed three ways:
-
-- **[`by-app/`](./examples/by-app)** — plain single-action SDK examples, one authenticated call.
-- **[`by-domain/`](./examples/by-domain)** — curation-only READMEs mapping a domain (engineering, real estate, ...) to the examples that matter.
-- **[`by-pattern/`](./examples/by-pattern)** — end-to-end automations by shape (notify-on-event, data-sync, lead-routing, scheduled-report).
+Full API reference at [docs.zapier.com/sdk/reference](https://docs.zapier.com/sdk/reference).
 
 ## How it fits together
 
@@ -90,7 +82,6 @@ Drop every best practice for writing Zapier SDK code straight into your agent's 
 
 - **The `zapier-sdk` skill**: how to authenticate, discover apps and actions at runtime, run actions without inventing method names, and reach for the right escape hatch when there's no first-class action.
 - **The `zapier-sdk-explorer` subagent**: a read-only investigator that resolves exact app / action / field IDs against the live Zapier catalog before your agent writes a line of code.
-- **The verified examples corpus**: every action key checked against `listActions` on the way in, so your agent has canonical, copy-paste-ready patterns to grep.
 
 Result: fewer round trips to the docs, no more invented action keys, and workflows that work the first time.
 
@@ -131,11 +122,10 @@ git clone https://github.com/zapier/sdk.git
 - **[docs.zapier.com/sdk](https://docs.zapier.com/sdk)** — SDK guides and tutorials.
 - **[docs.zapier.com/sdk/reference](https://docs.zapier.com/sdk/reference)** — full method reference.
 - **[docs.zapier.com/sdk/cli-reference](https://docs.zapier.com/sdk/cli-reference)** — CLI reference for `zapier-sdk`.
-- **[`skills/zapier-sdk/references/cli-commands.md`](./skills/zapier-sdk/references/cli-commands.md)** — full CLI command inventory in-repo, generated from `zapier-sdk --help`.
 - **[`@zapier/zapier-sdk`](https://www.npmjs.com/package/@zapier/zapier-sdk)** — runtime SDK on npm.
 - **[`@zapier/zapier-sdk-cli`](https://www.npmjs.com/package/@zapier/zapier-sdk-cli)** — CLI companion on npm.
 - **[Zapier MCP](https://github.com/zapier/zapier-mcp)** — the MCP-server alternative for tool-calling from Cursor, Claude Desktop, or Codex.
-- **[`llms.txt`](./llms.txt)** — this repo's LLM-friendly index of the skill, examples, and agents.
+- **[`llms.txt`](./llms.txt)** — this repo's LLM-friendly index of the skill and agents.
 - **[docs.zapier.com/llms.txt](https://docs.zapier.com/llms.txt)** — LLM-friendly index of the docs.
 - **[docs.zapier.com](https://docs.zapier.com)** — everything else Zapier.
 
