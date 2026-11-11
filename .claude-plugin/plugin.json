@@ -1,6 +1,6 @@
 {
   "name": "sdk",
-  "description": "Agent skills and verified examples for writing Zapier SDK code that works.",
+  "description": "Agent skills for writing Zapier SDK code that works.",
   "version": "0.1.0",
   "author": {
     "name": "Zapier",

@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Something in the SDK or examples isn't working as documented
+about: Something in the SDK or skill isn't working as documented
 title: ""
 labels: ["bug"]
 ---
